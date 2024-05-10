@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    # Locals / vars currently don't work yet with backend block. Need to be spcified man ually.
+    # Workaround: Locals / vars currently don't work yet with backend block. Need to be spcified man ually.
     # https://github.com/hashicorp/terraform/issues/13022
     # https://github.com/opentofu/opentofu/issues/1042
     bucket  = "dfi-labs-dev-tf3-state"
