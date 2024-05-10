@@ -1,0 +1,33 @@
+- name: nix
+  hosts: localhost
+  vars:
+    nix_conf_dir: $HOME/.config/nix
+    envd_dir: $HOME/.config/environment.d
+    user_name: "{{ lookup('env', 'USER') }}"
+  tasks:
+    - name: apt install nix-bin
+      ansible.builtin.apt:
+        name: nix-bin
+        state: present
+    - name: ensure dirs
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ nix_conf_dir }}"
+        - "{{ envd_dir }}"
+    - name: Link nix.conf
+      ansible.builtin.file:
+        src: "{{ playbook_dir }}/nix.conf"
+        dest: "{{ nix_conf_dir }}/nix.conf"
+        state: link
+    - name: Clear NIX_PATH // workaround for Debian bug
+      ansible.builtin.file:
+        src: "{{ playbook_dir }}/nix-daemon.conf"
+        dest: "{{ envd_dir }}/nix-daemon.conf"
+        state: link
+    - name: Add user '{{ user_name }}' to group nix-users
+      user:
+        name: '{{ user_name }}'
+        groups: nix-users
+        append: yes

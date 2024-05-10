@@ -1,0 +1,28 @@
+- name: tmux
+  hosts: localhost
+  vars:
+    tmux_conf_dir: $HOME/.config/tmux
+    tmux_tpm_dir: "{{ tmux_conf_dir }}/plugins/tpm"
+  tasks:
+    - name: apt install tmux
+      ansible.builtin.apt:
+        name: tmux
+        state: present
+    - name: ensure dirs
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ tmux_conf_dir }}"
+    - name: Link tmux.conf
+      ansible.builtin.file:
+        src: "{{ playbook_dir }}/tmux.conf"
+        dest: "{{ tmux_conf_dir }}/tmux.conf"
+        state: link
+    - name: Clone tpm
+      ansible.builtin.git:
+        repo: https://github.com/tmux-plugins/tpm
+        dest: "{{ tmux_tpm_dir }}"
+    - name: Install tpm plugins
+      command: "{{ tmux_tpm_dir }}/bin/install_plugins"
+
