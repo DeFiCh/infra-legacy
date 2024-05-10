@@ -34,17 +34,17 @@ Infrastructure management of DFI Labs.
       - Setup IAM for terraform service account
       - Setup GCS bucket for terraform state storage
       - Setup IAM for owner user for service account impersonation
-- Terraform the projects:
+- Terraform the projects: (This should already be CI ready, once it's setup)
     - Make sure that you have application default credentials setup for GCP
       - `gcloud auth application-default login`
-      - Make sure the account you use have service account impersonation permissions (setup by the ansible project)  
+      - Make sure the account you use have service account impersonation permissions.
     - Standard terraform / opentofu workflow inside each project dir. (Can be executed by CI)
       - `cd tf/<project>`
       - `tofu init` - Initialize on first run
       - `tofu plan`
-      - `tofu apply` 
+      - `tofu apply`
 
-#### Instances 
+#### Instances
 
 - If you need manual instances, add them to instances.tf in the project.
 - Try to use the recommended types, so it's easier to have high-level sense of sizing and costs without having to looking at pricing calculator.
