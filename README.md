@@ -27,8 +27,17 @@ Infrastructure management of DFI Labs.
 - Create projects:
   - Make sure gcloud is setup with credentials to create project. 
   - `ansible-playbook -i ./ansible/gcp/gcp-setup-project.yml`
-    - This creates projects, terraform service accounts, IAM and GCS buckets for terraform state storage.
-- Terraform projects:
+    - This does the following:
+      - Create project.
+      - Link billing to project
+      - Create terraform service accounts
+      - Setup IAM for terraform service account
+      - Setup GCS bucket for terraform state storage
+      - Setup IAM for owner user for service account impersonation
+- Terraform the projects:
+    - Make sure that you have application default credentials setup for GCP
+      - `gcloud auth application-default login`
+      - Make sure the account you use have service account impersonation permissions (setup by the ansible project)  
     - Standard terraform / opentofu workflow inside each project dir. (Can be executed by CI)
       - `cd tf/<project>`
       - `tofu init` - Initialize on first run
