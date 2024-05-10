@@ -1,0 +1,26 @@
+- name: Setup base
+  hosts: all
+  remote_user: x
+  vars:
+  tasks:
+    - name: apt install
+      apt: name={{ item }} state=latest
+      become: yes
+      with_items:
+        - htop
+        - neovim
+        - git
+        - wget
+        - curl
+        - aria2
+        - unzip
+        - ranger
+    - name: Create dirs
+      file: path={{ item }} state=directory
+      with_items:
+        - $HOME/bin
+        - $HOME/.defi
+        - $HOME/data/dfi-archives
+        - $HOME/data/dfi-snaps
+        - $HOME/data/dfi-backups
+

@@ -1,0 +1,14 @@
+- name: Clean
+  hosts: all
+  remote_user: x
+  become: yes
+  vars:
+  tasks:
+    - name: Clean dirs
+      command: "rm -rf {{ item }}/*"
+      with_items:
+        - $HOME/.defi
+        - $HOME/data/dfi-archives
+        - $HOME/data/dfi-snaps
+        - $HOME/data/dfi-backups
+

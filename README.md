@@ -32,7 +32,7 @@ Infrastructure management of DFI Labs.
 
 - Create projects:
   - Make sure gcloud is setup with credentials to create project. 
-  - `ansible-playbook -i ./ansible/gcp/gcp-setup-project.yml`
+  - `ansible-playbook ./ansible/gcp/gcp-setup-project.yml` 
     - This does the following:
       - Create project.
       - Link billing to project
@@ -54,3 +54,10 @@ Infrastructure management of DFI Labs.
 
 - If you need manual instances, add them to instances.tf in the project.
 - Try to use the recommended types, so it's easier to have high-level sense of sizing and costs without having to looking at pricing calculator.
+
+### Running ansible playbooks
+
+- Playbooks are by default targeted to "all" hosts at the moment. 
+- Playbook inventory is meant to be dynamic, and be defined through the repo-local config. 
+- For targeting specific plays at specific nodes, target them directly
+  - Eg: `ansible-playbook ./ansible/dfi/setup-base.yml -i <host-ip>,` (Note the comma after IP or ansible won't validate)

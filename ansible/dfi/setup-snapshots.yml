@@ -1,0 +1,25 @@
+- name: Setup snapshots
+  hosts: all
+  remote_user: x
+  vars:
+    dfi_snapshot_height: 3957829
+    dfi_snapshot_file_name_no_ext: "snapshot-mainnet-{{ dfi_snapshot_height }}"
+    dfi_snapshot_file_name_zip: "{{ dfi_snapshot_file_name_no_ext }}.zip"
+    dfi_snapshot_url: "https://defi-snapshots.s3-ap-southeast-1.amazonaws.com/{{ dfi_snapshot_file_name_zip }}"
+  tasks:
+    - name: Download snapshot
+      command: "aria2c -x16 -s16 {{ dfi_snapshot_url }}"
+      args:
+        chdir: $HOME/data/dfi-snaps
+        creates: "{{ dfi_snapshot_file_name_zip }}"
+    - name: Unzip snapshot
+      command: "unzip {{ dfi_snapshot_file_name_zip }} -d {{ dfi_snapshot_file_name_no_ext }}"
+      args:
+        chdir: $HOME/data/dfi-snaps
+        creates: "{{ dfi_snapshot_file_name_no_ext }}"
+    - name: Cleanup old data
+      command: "rm -rf $HOME/.defi/*"
+    - name: Move snapshot to data
+      command: "mv {{ dfi_snapshot_file_name_no_ext }}/* $HOME/.defi"
+      args:
+        chdir: $HOME/data/dfi-snaps

@@ -41,7 +41,7 @@ resource "google_compute_instance" "vm1" {
   boot_disk {
     initialize_params {
       image = data.google_compute_image.debian12.self_link
-      size  = 100
+      size  = 200
       type  = "pd-ssd"
     }
   }
