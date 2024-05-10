@@ -19,3 +19,5 @@ resource "google_compute_project_metadata" "default" {
     EOF
   }
 }
+
+# TODO: Provide entire with read access to the project

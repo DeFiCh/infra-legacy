@@ -1,6 +1,6 @@
 # TODO: 
-# - Switch to owner to groups
-# - Make project, org and billing vars input propogate from higher components.
+# - Switch owner to groups
+# - Make project, org and billing vars input propogate from higher components
 
 - name: Setup GCP Project
   hosts: localhost

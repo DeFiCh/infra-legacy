@@ -5,23 +5,29 @@ Infrastructure management of DFI Labs.
 ## What
 
 - The goal of this project is to make the entire infrastructure reproduceable, collaborative and secure transparently with everyone.
+- High level Info:
+  - Project: Use K8s (`dir: k8s`)
+  - Infra: Terraform / OpenTofu - To setup VMs and K8 clusters (`dir: tf`)
+  - Ansible:  For OS, pkg and config management + other raw VM items (`dir: ansible`)
+    - Feel free to use ansible for quick tests and migration from old infra until K8s infra is mature.
+
+## Goals
+
 - Starting goal:
   - Transparent code for the entire team.
   - Infra creation from CI
   - Infra management from CI
   - Resolve secure key distribution
-- Final goal: 
+  - K8s
+- Final goal:
   - Make majority of the parts open source.
 
-## Info
+## How
 
-- For infrastructure setup and mutation: Terraform /  OpenTofu (`dir: tf`)
-- For infrastructure configuration management:  Ansible (`dir: ansible`)
-
-## How to run 
-
-- Eventual goal is for the CI to take care of all these. For now, it's a mix of manual runs and slow migration to gitops. 
-
+- Eventual goal is for the CI to take care of all these. For now, it's a mix of manual runs and slow migration to gitops.
+- [TODO] Use k8s to run projects as much as possible, and raw instances primarily as  k8 workers.
+- [TODO] Raw instances: Only use if absolutely needed. Ok to use for migration from old infra where-ever needed to ease friction.
+- 
 ###  GCP Projects
 
 - Create projects:
