@@ -18,8 +18,13 @@
         chdir: $HOME/data/dfi-snaps
         creates: "{{ dfi_snapshot_file_name_no_ext }}"
     - name: Cleanup old data
-      command: "rm -rf $HOME/.defi/*"
+      shell: "rm -rf $HOME/.defi/*"
     - name: Move snapshot to data
-      command: "mv {{ dfi_snapshot_file_name_no_ext }}/* $HOME/.defi"
+      shell: "mv {{ dfi_snapshot_file_name_no_ext }}/* $HOME/.defi"
       args:
         chdir: $HOME/data/dfi-snaps
+    - name: Remove snapshot dir
+      shell: "rm -rf {{ dfi_snapshot_file_name_no_ext }}"
+      args:
+        chdir: $HOME/data/dfi-snaps
+        removes: "{{ dfi_snapshot_file_name_no_ext }}"
