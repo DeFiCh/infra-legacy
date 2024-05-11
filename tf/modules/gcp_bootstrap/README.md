@@ -12,7 +12,7 @@ This module bootstraps GCP for an organization when no resources exist.
     - Billing access to attach billing account
 - Billing account
 - Application default credentials for terraform to access GCP API.
-  - `gcloud auth login` 
+  - `gcloud auth login`
   - `gcloud auth application-default login`
 
 ## Design

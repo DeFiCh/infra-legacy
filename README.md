@@ -1,10 +1,10 @@
-#  dfi-labs-infra
+# dfi-labs-infra
 
 Infrastructure management of DFI Labs.
 
 ## What
 
-- The goal of this project is to make the entire infrastructure reproduceable, collaborative and secure transparently with everyone.
+- The goal of this project is to make the entire infrastructure reproducible, collaborative and secure transparently with everyone.
 - High level Info:
   - Project: Use K8s (`dir: k8s`)
   - Infra: Terraform / OpenTofu - To setup VMs and K8 clusters (`dir: tf`)
@@ -37,8 +37,8 @@ Infrastructure management of DFI Labs.
 #### Legacy
 
 - Create projects:
-  - Make sure gcloud is setup with credentials to create project. 
-  - `ansible-playbook ./ansible/gcp/gcp-setup-project.yml` 
+  - Make sure gcloud is setup with credentials to create project.
+  - `ansible-playbook ./ansible/gcp/gcp-setup-project.yml`
     - This does the following:
       - Create project.
       - Link billing to project
@@ -47,14 +47,14 @@ Infrastructure management of DFI Labs.
       - Setup GCS bucket for terraform state storage
       - Setup IAM for owner user for service account impersonation
 - Terraform the projects: (This should already be CI ready, once it's setup)
-    - Make sure that you have application default credentials setup for GCP
-      - `gcloud auth application-default login`
-      - Make sure the account you use have service account impersonation permissions.
-    - Standard terraform / opentofu workflow inside each project dir. (Can be executed by CI)
-      - `cd tf/<project>`
-      - `tofu init` - Initialize on first run
-      - `tofu plan`
-      - `tofu apply`
+  - Make sure that you have application default credentials setup for GCP
+    - `gcloud auth application-default login`
+    - Make sure the account you use have service account impersonation permissions.
+  - Standard terraform / opentofu workflow inside each project dir. (Can be executed by CI)
+    - `cd tf/<project>`
+    - `tofu init` - Initialize on first run
+    - `tofu plan`
+    - `tofu apply`
 
 #### Instances
 
@@ -63,7 +63,7 @@ Infrastructure management of DFI Labs.
 
 ### Running ansible playbooks
 
-- Playbooks are by default targeted to "all" hosts at the moment. 
-- Playbook inventory is meant to be dynamic, and be defined through the repo-local config. 
+- Playbooks are by default targeted to "all" hosts at the moment.
+- Playbook inventory is meant to be dynamic, and be defined through the repo-local config.
 - For targeting specific plays at specific nodes, target them directly
   - Eg: `ansible-playbook ./ansible/dfi/setup-base.yml -i <host-ip>,` (Note the comma after IP or ansible won't validate)
