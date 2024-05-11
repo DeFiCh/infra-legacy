@@ -5,7 +5,7 @@
   vars:
   tasks:
     - name: Clean dirs
-      command: "rm -rf {{ item }}/*"
+      shell: "rm -rf {{ item }}/*"
       with_items:
         - $HOME/.defi
         - $HOME/data/dfi-archives

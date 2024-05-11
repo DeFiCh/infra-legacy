@@ -27,8 +27,14 @@ Infrastructure management of DFI Labs.
 - Eventual goal is for the CI to take care of all these. For now, it's a mix of manual runs and slow migration to gitops.
 - [TODO] Use k8s to run projects as much as possible, and raw instances primarily as  k8 workers.
 - [TODO] Raw instances: Only use if absolutely needed. Ok to use for migration from old infra where-ever needed to ease friction.
-- 
-###  GCP Projects
+
+### GCP Projects
+
+#### Next
+
+- See [./dfi-labs-tf-bootstrap/README.md](./dfi-labs-tf-bootstrap/README.md)
+
+#### Legacy
 
 - Create projects:
   - Make sure gcloud is setup with credentials to create project. 
