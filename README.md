@@ -32,7 +32,7 @@ Infrastructure management of DFI Labs.
 
 #### Next
 
-- See [./dfi-labs-tf-bootstrap/README.md](./dfi-labs-tf-bootstrap/README.md)
+- See [./tf/dfi-labs-tf-bootstrap/README.md](tf/dfi-labs-tf-bootstrap/README.md)
 
 #### Legacy
 
