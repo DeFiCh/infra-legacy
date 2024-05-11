@@ -3,8 +3,8 @@ locals {
   billing_account_legacy_id = "01F606-D04835-3532AB" # Legacy
   billing_account_id = "01BA6B-33D914-55E186" # 2024-1
 
-  root_folder_name = "dfi-labs"
-  control_project_name = "${ local.root_folder_name }-control"
+  folder_name = "dfi-labs"
+  control_project_name = "${ local.folder_name }-control"
   control_state_bucket_name = "${ local.control_project_name }-state"
   control_service_account_name = "tf-control-sa"
   control_service_account_email = "${ local.control_service_account_name }@${ local.control_project_name }.iam.gserviceaccount.com"
@@ -32,8 +32,8 @@ output billing_account_id {
     value       = local.billing_account_id
 }
 
-output root_folder_name {
-    value       = local.root_folder_name
+output folder_name {
+    value       = local.folder_name
 }
 
 output control_project_name {

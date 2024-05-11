@@ -11,7 +11,7 @@ variable billing_account_id {
   description = "Billing account to be associated with projects"
 }
 
-variable root_folder_name {
+variable folder_name {
   type        = string
   default     = ""
   description = "Root folder under which all projects will be created"
@@ -47,7 +47,7 @@ variable service_account_display_name {
   description = "Control service account display name"
 }
 
-variable service_account_root_folder_roles {
+variable service_account_folder_roles {
   type        = list(string)
   default     = [
     "roles/editor",

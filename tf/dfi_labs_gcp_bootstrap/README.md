@@ -1,13 +1,16 @@
 # dfi-labs-tf-bootstrap
 
-The bootstrap project.
+The bootstrap project when no other resources exist.
 
 ## What
 
-- tf-bootstrap -> tf-control -> All other projects.
-- tf-bootstrap is a project run manually by an user with permissions
-- tf-bootstrap sets up the tf-control project, which can then be used to
+- `dfi_labs_gcp_bootstrap` -> `dfi_labs_gcp` -> All other projects through CI/CD.
+- `dfi_labs_gcp_bootstrap` is run manually by an user with permissions.
+- `dfi_labs_gcp_bootstrap` sets up the required items for `dfi_labs_gcp`, which can then be used to
 manage other projects from CI/CD pipelines.
+
+
+- For more info, see [modules/gcp_bootstrap](../modules/gcp_bootstrap/README.md)
 
 ## Notes
 

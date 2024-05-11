@@ -1,5 +1,5 @@
 resource "google_folder" "root" {
-  display_name = var.root_folder_name
+  display_name = var.folder_name
   parent       = "organizations/${var.org_id}"
 }
 
@@ -33,7 +33,7 @@ resource "google_project_iam_binding" "control" {
 # Grant the service account administer root folder with create and 
 # edit access below it.
 resource "google_folder_iam_binding" "root" {
-  for_each = toset(var.service_account_root_folder_roles)
+  for_each = toset(var.service_account_folder_roles)
   folder  = google_folder.root.name
   role    = each.key
 

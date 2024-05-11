@@ -9,7 +9,7 @@ module gcp_bootstrap {
   
   org_id = module.gcp_default.org_id
   billing_account_id = module.gcp_default.billing_account_legacy_id
-  root_folder_name = module.gcp_default.root_folder_name
+  folder_name = module.gcp_default.folder_name
   project_name = module.gcp_default.control_project_name
   bucket_name = module.gcp_default.control_state_bucket_name
   bucket_location = module.gcp_default.control_state_bucket_location
