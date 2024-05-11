@@ -5,7 +5,7 @@ module gcp_default {
 }
 
 module gcp_bootstrap {
-  source = "../modules/gcp-bootstrap"
+  source = "../modules/gcp_bootstrap"
   
   org_id = module.gcp_default.org_id
   billing_account_id = module.gcp_default.billing_account_legacy_id
