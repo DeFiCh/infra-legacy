@@ -2,6 +2,14 @@
 
 All the terraform infrastructure.
 
+## Core
+
+- `dfi_labs_bootstrap_gcp`: Project that bootstraps GCP when no resources exist. Run manually with user credentials.
+- `dfi_labs_dev_gcp`: Entire dev environment infra.
+- `dfi_labs_prod_gcp`: Entire prod environment infra.
+- `dfi_labs_staging_gcp`: Entire staging environment infra.
+  - Reuse the identical module sets used by prod environment with only differing config.
+
 ## Conventions
 
 - High level directories indicate an environment.
@@ -17,10 +25,11 @@ All the terraform infrastructure.
 - Use lowercase only: (Reason: Eliminate dissonance in WTFToCamelCasing/WtfToCamelCase).
 - Use `_` only as separators. Don't use `-`. (Reason: Eliminate dissonance_in_project-t)
 
-## Core
+#### Modules
 
-- `dfi_labs_bootstrap_gcp`: Project that bootstraps GCP when no resources exist. Run manually with user credentials.
-- `dfi_labs_dev_gcp`: Entire dev environment infra.
-- `dfi_labs_prod_gcp`: Entire prod environment infra.
-- `dfi_labs_staging_gcp`: Entire staging environment infra.
-  - Reuse the identical module sets used by prod environment with only differing config.
+For `modules/*`.
+
+- For common vars, use `<project>_defaults_[env_][provider]`
+- For project related abstractions, use `<project>_[env_]item[_provider]`
+- For project agnostic, provider related abstractions, use `<provider>_<item>` to be in-line with terraform module naming.
+- The difference is intentional to clearly separate project related ones from agnostic modules that can be published externally or upstreamed for public use.
