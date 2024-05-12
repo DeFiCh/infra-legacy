@@ -27,7 +27,7 @@ module "gcp_default" {
 }
 
 provider "google" {
-  region = module.gcp_default.default_region
-  zone   = module.gcp_default.default_zone
+  region                      = module.gcp_default.default_region
+  zone                        = module.gcp_default.default_zone
   impersonate_service_account = module.gcp_default.control_service_account_email
 }

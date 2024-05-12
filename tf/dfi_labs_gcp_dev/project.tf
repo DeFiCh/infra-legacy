@@ -1,7 +1,7 @@
 # Find the control project, so that we can refer to this for other things
 # like folders
 data "google_projects" "control" {
-  filter      = "id:${module.gcp_default.control_project_name}"
+  filter = "id:${module.gcp_default.control_project_name}"
 }
 
 resource "google_project" "dev1" {
@@ -22,7 +22,7 @@ resource "google_project_service" "dev1" {
 
 resource "google_compute_project_metadata" "dev1" {
   project = google_project.dev1.project_id
-  
+
   metadata = {
     serial-port-enable = false
     enable-oslogin     = false
