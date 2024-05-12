@@ -1,6 +1,6 @@
 locals {
   // 90 days in seconds, default is 7 days.
-  control_bucket_soft_delete_duration_seconds = 7776000 
+  control_bucket_soft_delete_duration_seconds = 7776000
 }
 
 resource "google_folder" "root" {
@@ -41,7 +41,7 @@ resource "google_organization_iam_binding" "control" {
   for_each = toset(var.service_account_org_roles)
 
   org_id = var.org_id
-  role     = each.key
+  role   = each.key
 
   members = [
     "serviceAccount:${google_service_account.control.email}",
@@ -65,7 +65,7 @@ resource "google_project_iam_binding" "control" {
   for_each = toset(var.service_account_project_roles)
 
   project = google_project.control.project_id
-  role     = each.key
+  role    = each.key
 
   members = [
     "serviceAccount:${google_service_account.control.email}",

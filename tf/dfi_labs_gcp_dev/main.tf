@@ -9,21 +9,8 @@ terraform {
   }
 }
 
-# This is a direct migration from the previous tf iteration of
-# dfi-labs-dev-tf3. 
-# TODO: Modify and refactor into modules for managing multiple projects
-# in this tf project.
-
-locals {
-  project_dev = "dfi-labs-dev-tf4"
-  services = [
-    "cloudresourcemanager.googleapis.com",
-    "compute.googleapis.com",
-  ]
-}
-
 module "gcp_default" {
-  source = "../modules/gcp_default_dfi_labs"
+  source = "../modules/dfi_labs_defaults_gcp"
 }
 
 provider "google" {

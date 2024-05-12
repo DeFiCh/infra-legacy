@@ -35,7 +35,7 @@ locals {
 }
 
 resource "google_compute_instance" "dev1_vm1" {
-  project = google_project.dev1.project_id
+  project = local.project_name
 
   name         = "vm1"
   machine_type = local.machine_types.n2d_2cpu_8gb

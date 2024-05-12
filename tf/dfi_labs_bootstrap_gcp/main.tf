@@ -1,7 +1,7 @@
 provider "google" {}
 
 module "gcp_default" {
-  source = "../modules/gcp_default_dfi_labs"
+  source = "../modules/dfi_labs_defaults_gcp"
 }
 
 module "gcp_bootstrap" {

@@ -10,5 +10,5 @@ resource "google_compute_firewall" "dev1_ssh" {
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["ssh"]
 
-  project = google_project.dev1.project_id
+  project = local.project_name
 }
