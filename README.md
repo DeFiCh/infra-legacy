@@ -11,18 +11,16 @@ Infrastructure management of DFI Labs.
   - Ansible:  For OS, pkg and config management + other raw VM items (`dir: ansible`)
     - Feel free to use ansible for quick tests and migration from old infra until K8s infra is mature.
 
-## Goals
+## Migration plan
 
-- Starting goal:
-  - Transparent code for the entire team.
-  - Infra creation from CI
-  - Infra management from CI
-  - Resolve secure key distribution
-  - Move as much into K8s
-- Final goal:
-  - Make majority of the parts open source.
+- Start with transparent code and infra to visible to the entire team.
+- Start with manual deployments as needed but checked in code.
+- Switch to CI For core infra management.
+- Eventually automate config and key distribution.
+- Move as much into K8s
+- Make majority of the parts open source.
 
-### Terraform projects
+## Terraform projects
 
 - Standard terraform / opentofu workflow inside each project dir.
   - `cd tf/<project>`
@@ -33,7 +31,7 @@ Infrastructure management of DFI Labs.
 - See [./tf/dfi_labs_bootstrap_gcp/README.md](tf/dfi_labs_bootstrap_gcp/README.md)
 - See [./tf/dfi_labs_dev_gcp/README.md](tf/dfi_labs_dev_gcp/README.md)
 
-### Ansible playbooks
+## Ansible playbooks
 
 - Playbooks are by default targeted to "all" hosts at the moment.
 - Playbook inventory is meant to be dynamic, and be defined through the repo-local config.
