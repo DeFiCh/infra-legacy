@@ -9,6 +9,11 @@ terraform {
   }
 }
 
+# This is a direct migration from the previous tf iteration of
+# dfi-labs-dev-tf3. 
+# TODO: Modify and refactor into modules for managing multiple projects
+# in this tf project.
+
 locals {
   project_dev = "dfi-labs-dev-tf4"
   services = [
