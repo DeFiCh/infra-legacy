@@ -9,7 +9,6 @@ The bootstrap project when no other resources exist.
 - `dfi_labs_gcp_bootstrap` sets up the required items for `dfi_labs_gcp`, which can then be used to
 manage other projects from CI/CD pipelines.
 
-
 - For more info, see [modules/gcp_bootstrap](../modules/gcp_bootstrap/README.md)
 
 ## Notes
