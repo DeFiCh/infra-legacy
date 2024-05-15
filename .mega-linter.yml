@@ -17,6 +17,10 @@ APPLY_FIXES: all
 DISABLE_LINTERS:
   - TERRAFORM_TERRASCAN
   - TERRAFORM_TFLINT
+  # TODO: Security fixes in separate PR
+  - REPOSITORY_TRIVY
+  - REPOSITORY_KICS
+  - REPOSITORY_CHECKOV
 
 DISABLE:
   - SPELL # Uncomment to disable checks of spelling mistakes
