@@ -1,4 +1,11 @@
-# dfi-labs-infra
+# DefichainLabs Infrastructure as Code
+
+<!-- markdown-link-check-disable-next-line -->
+[![MegaLinter](https://github.com/DeFiCh/infra/actions/workflows/mega-linter.yml/badge.svg)](https://github.com/DeFiCh/infra/actions/workflows/mega-linter.yml)
+
+[![DefichainLabs](./docs/imgs/defichainlabs.svg)](https://defichain.com)
+
+---
 
 Infrastructure management of DFI Labs.
 
@@ -8,7 +15,7 @@ Infrastructure management of DFI Labs.
 - High level Info:
   - Project: Use K8s (`dir: k8s`)
   - Infra: Terraform / OpenTofu - To setup VMs and K8 clusters (`dir: tf`)
-  - Ansible:  For OS, pkg and config management + other raw VM items (`dir: ansible`)
+  - Ansible: For OS, pkg and config management + other raw VM items (`dir: ansible`)
     - Feel free to use ansible for quick tests and migration from old infra until K8s infra is mature.
 
 ## Migration plan
@@ -27,7 +34,6 @@ Infrastructure management of DFI Labs.
   - `tofu init` - Initialize on first run
   - `tofu plan`
   - `tofu apply`
-  
 - See [./tf/dfi_labs_bootstrap_gcp/README.md](tf/dfi_labs_bootstrap_gcp/README.md)
 - See [./tf/dfi_labs_dev_gcp/README.md](tf/dfi_labs_dev_gcp/README.md)
 
@@ -66,7 +72,7 @@ Infrastructure management of DFI Labs.
 ### Why K8s and containers rather than Vercel, Netlify, X, Y
 
 - K8s and containers should be self explanatory.
-- On docker: Prefer `podman` where-ever possible. It's more open, and is key OCI based tool. Also used by big tech and benefit from the mind-share at scale. All container management tools are just APIs over kernel namespaces today anyway. 
+- On docker: Prefer `podman` where-ever possible. It's more open, and is key OCI based tool. Also used by big tech and benefit from the mind-share at scale. All container management tools are just APIs over kernel namespaces today anyway.
   - In addition, has the benefits of open licensing. Fun-fact: Google, RedHat, Oracle, Microsoft etc all use podman related tools like `buildah`, `skopeo`, etc in their OCI based infra. Open sourcing and licensing usually is the winner given a long enough time horizon.
 - When we already have the capability for K8s, Knative and complete ecosystem - tools like netlify, vercel, etc no matter how simple they may seem decoupled, not only introduce additional fragmentation and cognitive efforts on a longer time horizon, but also add hard to debug problems that are specific to vendor infrastructure over time on integration of complex pieces of infrastructure.
 - Rely on standards. These shouldn't be necessary for productivity for teams that already have the open standards capability and in-fact hinder creativity and flexibility for teams with good conventions using foundational tools. These external services add more value and make more sense to non-tech organizations than one's that are tech focused.
