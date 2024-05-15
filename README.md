@@ -1,6 +1,11 @@
+# DefichainLabs Infrastructure as Code
+
+<!-- markdown-link-check-disable-next-line -->
 [![MegaLinter](https://github.com/DeFiCh/infra/actions/workflows/mega-linter.yml/badge.svg)](https://github.com/DeFiCh/infra/actions/workflows/mega-linter.yml)
 
-# dfi-labs-infra
+[![DefichainLabs](./docs/imgs/defichainlabs.svg)](https://defichain.com)
+
+---
 
 Infrastructure management of DFI Labs.
 
