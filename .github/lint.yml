@@ -1,0 +1,5 @@
+# TODO: Add linters
+# md: markdownlint, 
+# tf: tflint, tfsec
+# ansible: ansible-lint
+# k8s: kube-linter
