@@ -7,4 +7,5 @@ resources:
   - cluster-autoscaler
   - aws-load-balancer-controller
   - aws-ebs-csi-driver
+  - volume-snapshots
   - gemini
