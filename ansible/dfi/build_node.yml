@@ -1,0 +1,25 @@
+- name: Setup node
+  hosts: all
+  remote_user: x
+  vars:
+    dfi_version: 4.0.9
+    dfi_node_filename: "defichain-{{ dfi_version }}-x86_64-pc-linux-gnu"
+    dfi_node_dirname: "defichain-{{ dfi_version }}"
+    dfi_node_filename_tar: "{{ dfi_node_filename }}.tar.gz"
+    dfi_node_url: "https://github.com/DeFiCh/ain/releases/download/v{{ dfi_version }}/{{ dfi_node_filename_tar }}"
+  tasks:
+    - name: Download node
+      command: "aria2c -x16 -s16 {{ dfi_node_url }}"
+      args:
+        chdir: $HOME/data/dfi-archives
+        creates: "{{ dfi_node_filename_tar }}"
+    - name: Untar archive
+      command: "tar -xvzf {{ dfi_node_filename_tar }}"
+      args:
+        chdir: $HOME/data/dfi-archives
+        creates: "{{ dfi_node_dirname }}"
+    - name: Link binaries
+      file: src="$HOME/data/dfi-archives/{{ dfi_node_dirname }}/bin/{{ item }}" dest="$HOME/bin/{{ item }}" state=link
+      with_items:
+        - defid
+        - defi-cli
