@@ -1,5 +1,7 @@
 locals {
-  env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl")).locals
+  env_vars            = read_terragrunt_config(find_in_parent_folders("env.hcl")).locals
+  region              = try(read_terragrunt_config(find_in_parent_folders("region.hcl")).locals.region, "ap-southeast-1")
+  region_abbreviation = "${substr(split("-", local.region)[0], 0, 2)}${substr(split("-", local.region)[1], 0, 1)}${substr(split("-", local.region)[2], 0, 1)}"
 
   labels = {
     namespace   = "dfi"

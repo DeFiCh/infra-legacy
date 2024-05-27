@@ -6,7 +6,7 @@ locals {
     priority        = null
     type            = "NS"
     ttl             = 1
-    tags            = null
+    tags            = []
   }
 }
 
@@ -33,7 +33,7 @@ inputs = {
         value           = "147.75.40.150"
         type            = "A"
         ttl             = 1800
-        tags            = null # Unable in free version
+        tags            = [] # Unable in free version
         priority        = null
         comment         = "Jellyfishsdk Docusaurus"
       }
@@ -44,7 +44,7 @@ inputs = {
         value           = "statuspage.betteruptime.com"
         type            = "CNAME"
         ttl             = 1800
-        tags            = null # Unable in free version
+        tags            = [] # Unable in free version
         priority        = null
         comment         = "Better uptime status page"
       }
@@ -55,7 +55,7 @@ inputs = {
         value           = "birthday.netlifyglobalcdn.com"
         type            = "CNAME"
         ttl             = 1800
-        tags            = null # Unable in free version
+        tags            = [] # Unable in free version
         priority        = null
         comment         = "Better uptime status page"
       }
@@ -63,41 +63,67 @@ inputs = {
     {
       # Mainnet Jellyfishsdk.com
       for idx, val in [
-        { value = "ns-1911.awsdns-46.co.uk" },
-        { value = "ns-570.awsdns-07.net" },
-        { value = "ns-1507.awsdns-60.org" },
-        { value = "ns-387.awsdns-48.com" },
-        ] : "mainnet-${idx}" => merge(local.nameserver_defaults, {
-          name    = "mainnet.${local.domain}",
-          comment = "Mainnet DNS records",
-          value   = val.value,
-      })
+        { name = "mainnet.ocean.${local.domain}", value = "dualstack.cake-ocean-mainnet-whale-973680016.ap-southeast-1.elb.amazonaws.com" },
+        { name = "eth.mainnet.ocean.${local.domain}", value = "dualstack.cake-ocean-mainnet-whale-973680016.ap-southeast-1.elb.amazonaws.com" },
+        { name = "api.mainnet.ocean.${local.domain}", value = "dualstack.cake-ocean-mainnet-whale-973680016.ap-southeast-1.elb.amazonaws.com" },
+        { name = "blockscout.mainnet.ocean.${local.domain}", value = "cake-ocean-mainnet-blockscout-1255397527.ap-southeast-1.elb.amazonaws.com" },
+        { name = "stats.mainnet.ocean.${local.domain}", value = "cake-ocean-mainnet-blockscout-1255397527.ap-southeast-1.elb.amazonaws.com" },
+        { name = "visualizer.mainnet.ocean.${local.domain}", value = "cake-ocean-mainnet-blockscout-1255397527.ap-southeast-1.elb.amazonaws.com" },
+        { name = "defid.mainnet.ocean.${local.domain}", value = "ae6ea8d2ede66b9fc.awsglobalaccelerator.com" },
+      ] :
+      "${val.name}" => {
+        allow_overwrite = true
+        proxied         = false
+        name            = val.name
+        value           = val.value
+        type            = "CNAME"
+        ttl             = 1800
+        tags            = [] # Unable in free version
+        priority        = null
+        comment         = "Mainnet Ocean + Blockscout"
+      }
     },
     {
       # Testnet Jellyfishsdk.com
       for idx, val in [
-        { value = "ns-1019.awsdns-63.net" },
-        { value = "ns-1857.awsdns-40.co.uk" },
-        { value = "ns-1068.awsdns-05.org" },
-        { value = "ns-323.awsdns-40.com" },
-        ] : "testnet-${idx}" => merge(local.nameserver_defaults, {
-          name    = "testnet.${local.domain}",
-          comment = "Testnet DNS records",
-          value   = val.value,
-      })
+        { name = "testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-whale-87774044.ap-southeast-1.elb.amazonaws.com" },
+        { name = "blockscout.testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-blockscout-1420704679.ap-southeast-1.elb.amazonaws.com" },
+        { name = "eth.testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-whale-87774044.ap-southeast-1.elb.amazonaws.com" },
+        { name = "stats.testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-blockscout-1420704679.ap-southeast-1.elb.amazonaws.com" },
+        { name = "visualizer.testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-blockscout-1420704679.ap-southeast-1.elb.amazonaws.com" },
+      ] :
+      "${val.name}" => {
+        allow_overwrite = true
+        proxied         = false
+        name            = val.name
+        value           = val.value
+        type            = "CNAME"
+        ttl             = 1800
+        tags            = [] # Unable in free version
+        priority        = null
+        comment         = "Testnet Ocean + Blockscout"
+      }
     },
     {
       # Changi Jellyfishsdk.com
       for idx, val in [
-        { value = "ns-1305.awsdns-35.org" },
-        { value = "ns-774.awsdns-32.net" },
-        { value = "ns-1693.awsdns-19.co.uk" },
-        { value = "ns-169.awsdns-21.com" },
-        ] : "changi-${idx}" => merge(local.nameserver_defaults, {
-          name    = "changi.${local.domain}",
-          comment = "Changi DNS records",
-          value   = val.value,
-      })
+        { name = "changi.ocean.${local.domain}", value = "cake-ocean-changi-whale-1922433477.ap-southeast-1.elb.amazonaws.com" },
+        { name = "blockscout.changi.ocean.${local.domain}", value = "cake-ocean-changi-blockscout-986812764.ap-southeast-1.elb.amazonaws.com" },
+        { name = "eth.changi.ocean.${local.domain}", value = "cake-ocean-changi-whale-1922433477.ap-southeast-1.elb.amazonaws.com" },
+        { name = "stats.changi.ocean.${local.domain}", value = "cake-ocean-changi-blockscout-986812764.ap-southeast-1.elb.amazonaws.com" },
+        { name = "visualizer.changi.ocean.${local.domain}", value = "cake-ocean-changi-blockscout-986812764.ap-southeast-1.elb.amazonaws.com" },
+      ] :
+      "${val.name}" => {
+        allow_overwrite = true
+        proxied         = false
+        name            = val.name
+        value           = val.value
+        type            = "CNAME"
+        ttl             = 1800
+        tags            = [] # Unable in free version
+        priority        = null
+        comment         = "Testnet Ocean + Blockscout"
+      }
     },
     {
       # Playground Jellyfishsdk.com

@@ -14,8 +14,8 @@ inputs = {
   zone_id = dependency.zone.outputs.id
   name    = basename(get_terragrunt_dir())
   ingress_rules = {
-    "argo" = {
-      hostname = "argo"
+    "argo.changi" = {
+      hostname = "argo.changi"
       service  = "http://argo-cd-server.argo.svc.cluster.local"
     }
   }
