@@ -9,7 +9,7 @@ spec:
     namespace: ocean
     server: https://kubernetes.default.svc
   source:
-    path: k8s/legacy/changi/dfi-ocean-changi-aps1/controllers
+    path: k8s/legacy/changi/dfi-ocean-changi-aps1/ocean
     repoURL: git@github.com:DeFiCh/infra.git
     targetRevision: feat/ocean-changi
   syncPolicy:

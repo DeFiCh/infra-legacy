@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - ../../../../_commons/controllers/aws-ebs-csi-driver
+  - gp3.storage-class.yaml
 
 patches:
   - path: values.yaml
