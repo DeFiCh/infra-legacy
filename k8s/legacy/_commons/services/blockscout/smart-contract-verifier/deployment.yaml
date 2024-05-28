@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-contract-verifier
+spec:
+  selector:
+    matchLabels:
+      app: smart-contract-verifier
+  template:
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: smart-contract-verifier
+          image: ghcr.io/blockscout/smart-contract-verifier:latest
+          imagePullPolicy: Always
+          env:
+            - name: SMART_CONTRACT_VERIFIER__SERVER__HTTP__ENABLED
+              value: "true"
+            - name: SMART_CONTRACT_VERIFIER__SERVER__HTTP__ADDR
+              value: "0.0.0.0:8050"
+            - name: SMART_CONTRACT_VERIFIER__SERVER__HTTP__MAX_BODY_SIZE
+              value: "2097152"
+            - name: SMART_CONTRACT_VERIFIER__SERVER__GRPC__ENABLED
+              value: "false"
+            - name: SMART_CONTRACT_VERIFIER__SERVER__GRPC__ADDR
+              value: "0.0.0.0:8051"
+            - name: SMART_CONTRACT_VERIFIER__SOLIDITY__ENABLED
+              value: "true"
+            - name: SMART_CONTRACT_VERIFIER__SOLIDITY__COMPILERS_DIR
+              value: "/tmp/solidity-compilers"
+            - name: SMART_CONTRACT_VERIFIER__SOLIDITY__REFRESH_VERSIONS_SCHEDULE
+              value: "0 0 * * * * *"
+            - name: SMART_CONTRACT_VERIFIER__SOLIDITY__FETCHER__LIST__LIST_URL
+              value: "https://solc-bin.ethereum.org/linux-amd64/list.json"
+            - name: SMART_CONTRACT_VERIFIER__VYPER__ENABLED
+              value: "true"
+            - name: SMART_CONTRACT_VERIFIER__VYPER__COMPILERS_DIR
+              value: "/tmp/vyper-compilers"
+            - name: SMART_CONTRACT_VERIFIER__VYPER__REFRESH_VERSIONS_SCHEDULE
+              value: "0 0 * * * * *"
+            - name: SMART_CONTRACT_VERIFIER__VYPER__FETCHER__LIST__LIST_URL
+              value: "https://raw.githubusercontent.com/blockscout/solc-bin/main/vyper.list.json"
+            - name: SMART_CONTRACT_VERIFIER__SOURCIFY__ENABLED
+              value: "true"
+            - name: SMART_CONTRACT_VERIFIER__SOURCIFY__API_URL
+              value: "https://sourcify.dev/server/"
+            - name: SMART_CONTRACT_VERIFIER__SOURCIFY__VERIFICATION_ATTEMPTS
+              value: "3"
+            - name: SMART_CONTRACT_VERIFIER__SOURCIFY__REQUEST_TIMEOUT
+              value: "10"
+            - name: SMART_CONTRACT_VERIFIER__METRICS__ENABLED
+              value: "false"
+            - name: SMART_CONTRACT_VERIFIER__METRICS__ADDR
+              value: "0.0.0.0:6060"
+            - name: SMART_CONTRACT_VERIFIER__METRICS__ROUTE
+              value: "/metrics"
+            - name: SMART_CONTRACT_VERIFIER__JAEGER__ENABLED
+              value: "false"
+            - name: SMART_CONTRACT_VERIFIER__JAEGER__AGENT_ENDPOINT
+              value: "0.0.0.0:6831"
+          ports:
+            - containerPort: 8050
+              name: http
+              protocol: TCP
+            - containerPort: 8051
+              name: grpc
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4000Mi
+            requests:
+              cpu: "1"
+              memory: 2000Mi

@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: backend
+          image: blockscout/blockscout:latest
+          imagePullPolicy: Always
+          command: ["/bin/sh"]
+          args: ["-c", "bin/blockscout start"]
+          env:
+            - name: DISABLE_INDEXER
+              value: "true"
+            - name: DISABLE_WEBAPP
+              value: "true"
+            - name: API_V1_READ_METHODS_DISABLED
+              value: "false"
+            - name: API_V1_WRITE_METHODS_DISABLED
+              value: "false"
+          envFrom:
+            - secretRef:
+                name: database
+            - configMapRef:
+                name: blockscout
+          ports:
+            - containerPort: 4000
+              name: http
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4000Mi
+            requests:
+              cpu: "1"
+              memory: 2000Mi
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/v1/health/readiness
+              port: 4000
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 60
