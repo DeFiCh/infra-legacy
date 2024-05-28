@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: defid
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: mainnet-p2p
+      port: 8555
+      targetPort: 8555
+      protocol: TCP
+    - name: mainnet-dfi-rpc
+      port: 8554
+      targetPort: 8554
+      protocol: TCP
+    - name: mainnet-evm-rpc
+      port: 8551
+      targetPort: 8551
+      protocol: TCP
+    - name: testnet-p2p
+      port: 18555
+      targetPort: 18555
+      protocol: TCP
+    - name: testnet-dfi-rpc
+      port: 18554
+      targetPort: 18554
+      protocol: TCP
+    - name: testnet-evm-rpc
+      port: 18551
+      targetPort: 18551
+      protocol: TCP
+    - name: changi-p2p
+      port: 20555
+      targetPort: 20555
+      protocol: TCP
+    - name: changi-dfi-rpc
+      port: 20554
+      targetPort: 20554
+      protocol: TCP
+    - name: changi-evm-rpc
+      port: 20551
+      targetPort: 20551
+      protocol: TCP

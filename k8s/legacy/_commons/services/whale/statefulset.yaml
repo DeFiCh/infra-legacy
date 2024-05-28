@@ -1,0 +1,101 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: whale
+spec:
+  selector:
+    matchLabels:
+      app: whale
+  serviceName: "whale"
+  podManagementPolicy: Parallel
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: whale
+    spec:
+      terminationGracePeriodSeconds: 10
+      serviceAccount: whale
+      initContainers:
+        - name: snapshot-init
+          image: amazon/aws-cli:latest
+          envFrom:
+            - configMapRef:
+                name: whale
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo "Installing dependencies..";
+              yum install tar gzip -y;
+
+              echo "Cleaning up directories..";
+              [[ ! -z "${WHALE_FRESH_SYNC}" ]] && rm -rf /app/.leveldb/*;
+              mkdir -p $WHALE_PATH;
+
+              echo "Downloading snapshot...";
+              [[ ! -z "${WHALE_SNAPSHOT_SYNC}" && -z "$(ls -A $WHALE_PATH)" ]] && aws s3 cp s3://$BUCKET_NAME/$WHALE_SNAPSHOT_NAME /snapshot/$WHALE_SNAPSHOT_NAME;
+
+              echo "Extracting snapshot...";
+              [[ ! -z "${WHALE_SNAPSHOT_SYNC}" && -z "$(ls -A $WHALE_PATH)" ]] && tar -xzvf /snapshot/$WHALE_SNAPSHOT_NAME -C $WHALE_PATH/;
+
+              echo "Cleaning up...";
+              [[ ! -z "${WHALE_SNAPSHOT_SYNC}" && -z "$(ls -A $WHALE_PATH)" ]] && rm -rf /snapshot/$WHALE_SNAPSHOT_NAME;
+
+              echo "Updating permissions...";
+              chmod -R o+rw $WHALE_PATH/;
+              chown -R 1000:1000 $WHALE_PATH/;
+
+              echo "Done!";
+          volumeMounts:
+            - name: whale
+              mountPath: /app/.leveldb
+            - name: snapshot
+              mountPath: /snapshot
+      containers:
+        - name: whale
+          image: ghcr.io/birthdayresearch/whale-api:latest
+          envFrom:
+            - configMapRef:
+                name: whale
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          volumeMounts:
+            - name: whale
+              mountPath: /app/.leveldb
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2000Mi
+            requests:
+              cpu: "100m"
+              memory: 1000Mi
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /_actuator/probes/readiness
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+  volumeClaimTemplates:
+    - metadata:
+        name: whale
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "gp3"
+        resources:
+          requests:
+            storage: 64Gi
+    - metadata:
+        name: snapshot
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "gp3"
+        resources:
+          requests:
+            storage: 64Gi
