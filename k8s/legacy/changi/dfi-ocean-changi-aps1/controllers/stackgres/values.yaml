@@ -1,0 +1,12 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: stackgres
+spec:
+  source:
+    helm:
+      valuesObject:
+        adminui:
+          service:
+            exposeHTTP: true

@@ -9,3 +9,4 @@ resources:
   - aws-ebs-csi-driver
   - volume-snapshots
   - gemini
+  - stackgres
