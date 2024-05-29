@@ -1,0 +1,36 @@
+---
+apiVersion: stackgres.io/v1
+kind: SGCluster
+metadata:
+  name: database
+spec:
+  postgres:
+    version: "14.7"
+    extensions:
+      - name: "pg_repack"
+      - name: "pg_trgm"
+      - name: "btree_gist"
+      - name: "citext"
+  instances: 2
+  sgInstanceProfile: "size-s"
+  pods:
+    persistentVolume:
+      size: "64Gi"
+      storageClass: "gp3"
+    scheduling:
+      tolerations:
+        - key: "stackgres"
+          operator: "Exists"
+          effect: "NoSchedule"
+  configurations:
+    sgPostgresConfig: "pgconfig"
+    sgPoolingConfig: "poolconfig"
+  managedSql:
+    scripts:
+      - sgScript: db-script
+  postgresServices:
+    primary:
+      type: ClusterIP
+    replicas:
+      type: ClusterIP
+  prometheusAutobind: false

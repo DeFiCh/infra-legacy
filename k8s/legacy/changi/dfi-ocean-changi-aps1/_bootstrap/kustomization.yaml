@@ -5,3 +5,4 @@ namespace: argo
 resources:
   - controllers.yaml
   - ocean.yaml
+  - blockscout.yaml

@@ -1,0 +1,30 @@
+apiVersion: stackgres.io/v1
+kind: SGPoolingConfig
+metadata:
+  name: poolconfig
+spec:
+  pgBouncer:
+    pgbouncer.ini:
+      pgbouncer:
+        pool_mode: session
+        max_client_conn: "2000"
+        default_pool_size: "100"
+        log_connections: "1"
+        log_disconnections: "1"
+        log_stats: "1"
+        server_idle_timeout: "120"
+        client_idle_timeout: "30"
+        query_wait_timeout: "300"
+      databases:
+        postgres:
+          pool_size: 10
+          dbname: "postgres"
+          reserve_pool: 5
+        blockscout:
+          pool_size: 500
+          dbname: "blockscout"
+          reserve_pool: 5
+        stats:
+          pool_size: 500
+          dbname: "stats"
+          reserve_pool: 5
