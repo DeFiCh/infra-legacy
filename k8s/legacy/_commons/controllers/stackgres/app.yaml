@@ -11,7 +11,7 @@ spec:
   source:
     chart: stackgres-operator
     repoURL: https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/
-    targetRevision: "1.10.0"
+    targetRevision: "1.9.0"
     helm:
       releaseName: stackgres
   destination:
