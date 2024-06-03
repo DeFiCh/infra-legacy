@@ -27,7 +27,10 @@ spec:
     sgPoolingConfig: "poolconfig"
   managedSql:
     scripts:
-      - sgScript: db-script
+      - id: 0
+        sgScript: database-default
+      - id: 1
+        sgScript: db-script
   postgresServices:
     primary:
       type: ClusterIP

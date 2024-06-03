@@ -21,11 +21,11 @@ spec:
     autovacuum_vacuum_scale_factor: "0.1"
     autovacuum_analyze_scale_factor: "0.05"
     autovacuum_max_workers: "3"
-    log_min_duration_statement: "1000"
+    log_min_duration_statement: 1s
     log_checkpoints: "on"
     log_connections: "on"
     log_disconnections: "on"
-    idle_in_transaction_session_timeout: "600000"
+    idle_in_transaction_session_timeout: 10min
     checkpoint_completion_target: "0.9"
     default_statistics_target: "250"
     hot_standby_feedback: "on"
