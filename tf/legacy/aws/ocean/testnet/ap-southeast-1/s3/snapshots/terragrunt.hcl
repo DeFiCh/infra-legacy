@@ -11,7 +11,7 @@ inputs = {
   acl    = "private"
 
   control_object_ownership = true
-  object_ownership         = "ObjectWriter"
+  object_ownership         = "BucketOwnerEnforced"
 
   versioning = {
     enabled = true
