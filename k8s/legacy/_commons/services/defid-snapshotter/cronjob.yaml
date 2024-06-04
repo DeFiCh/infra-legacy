@@ -1,0 +1,146 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: defid-snapshotter
+spec:
+  concurrencyPolicy: "Forbid"
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          serviceAccount: defid-snapshotter
+          securityContext:
+            fsGroup: 1001
+          initContainers:
+            - name: snapshot-init
+              image: amazon/aws-cli:latest
+              envFrom:
+                - configMapRef:
+                    name: defid-snapshotter
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  echo "Installing dependencies..";
+                  yum install tar gzip -y;
+                  mkdir $DEFID_PATH;
+
+                  echo "Downloading snapshot...";
+                  aws s3 cp s3://$BUCKET_NAME/$DEFID_SNAPSHOT_NAME /snapshot/$DEFID_SNAPSHOT_NAME;
+
+                  echo "Extracting snapshot...";
+                  tar -xzvf /snapshot/$DEFID_SNAPSHOT_NAME -C $DEFID_PATH/;
+
+                  echo "Cleaning up...";
+                  rm -rf /snapshot/$DEFID_SNAPSHOT_NAME;
+
+                  echo "Copying defi.conf...";
+                  cp /tmp/defi.conf /data/defi.conf;
+
+                  echo "Updating permissions...";
+                  chmod -R o+rw $DEFID_PATH;
+                  chown -R 1001:1001 $DEFID_PATH;
+
+                  echo "Done!";
+              volumeMounts:
+                - name: defid-data
+                  mountPath: /data
+                - name: defi-conf
+                  mountPath: /tmp/defi.conf
+                  subPath: defi.conf
+                - name: snapshot-data
+                  mountPath: /snapshot
+          containers:
+            - name: defid-snapshots
+              image: amazon/aws-cli:latest
+              envFrom:
+                - configMapRef:
+                    name: defid-snapshotter
+              command: ["/bin/sh"]
+              args: ["/scripts/snapshotter.sh"]
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: 1000Mi
+                requests:
+                  cpu: "100m"
+                  memory: 500Mi
+              volumeMounts:
+                - name: defid-data
+                  mountPath: /data
+                - name: snapshot-data
+                  mountPath: /snapshot
+                - name: defid-snapshotter-script
+                  mountPath: /scripts/snapshotter.sh
+                  subPath: snapshotter.sh
+            - name: defid
+              image: defi/defichain:latest
+              ports:
+                - containerPort: 8555
+                  name: mainnet-p2p
+                  protocol: TCP
+                - containerPort: 8554
+                  name: mainnet-dfi-rpc
+                - containerPort: 8551
+                  name: mainnet-evm-rpc
+                - containerPort: 18555
+                  name: testnet-p2p
+                  protocol: TCP
+                - containerPort: 18554
+                  name: testnet-dfi-rpc
+                  protocol: TCP
+                - containerPort: 18551
+                  name: testnet-evm-rpc
+                  protocol: TCP
+                - containerPort: 20555
+                  name: changi-p2p
+                  protocol: TCP
+                - containerPort: 20554
+                  name: changi-dfi-rpc
+                  protocol: TCP
+                - containerPort: 20551
+                  name: changi-evm-rpc
+                  protocol: TCP
+              resources:
+                limits:
+                  cpu: "4"
+                  memory: 8000Mi
+                requests:
+                  cpu: "2"
+                  memory: 4000Mi
+              volumeMounts:
+                - name: defid-data
+                  mountPath: /data
+          volumes:
+            - name: defid-snapshotter-script
+              configMap:
+                name: defid-snapshotter-script
+            - name: defi-conf
+              configMap:
+                name: defi-conf
+            - name: defid-data
+              ephemeral:
+                volumeClaimTemplate:
+                  metadata:
+                    labels:
+                      app: defid-snapshotter
+                  spec:
+                    accessModes: ["ReadWriteOnce"]
+                    storageClassName: "gp3-multi"
+                    resources:
+                      requests:
+                        storage: 64Gi
+            - name: snapshot-data
+              ephemeral:
+                volumeClaimTemplate:
+                  metadata:
+                    labels:
+                      app: defid-snapshotter
+                  spec:
+                    accessModes: ["ReadWriteOnce"]
+                    storageClassName: "gp3-multi"
+                    resources:
+                      requests:
+                        storage: 64Gi

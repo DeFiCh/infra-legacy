@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - service-account.yaml
+  - cronjob.yaml
+
+commonLabels:
+  app: defid-snapshotter
+
+configMapGenerator:
+  - name: defid-snapshotter-script
+    files:
+      - snapshotter.sh

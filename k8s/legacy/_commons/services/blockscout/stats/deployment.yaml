@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stats
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: stats
+  template:
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: proxy
+          configMap:
+            name: proxy
+      containers:
+        - name: stats
+          image: ghcr.io/blockscout/stats:latest
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: stats
+            - secretRef:
+                name: database
+          ports:
+            - containerPort: 8050
+              name: stats
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4000Mi
+            requests:
+              cpu: "1"
+              memory: 2000Mi
+        - name: proxy
+          image: nginx:1.24-bullseye
+          ports:
+            - containerPort: 80
+              name: proxy
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d/default.conf
+              mountPropagation: None
+              name: proxy
+              subPath: nginx.conf
+          resources:
+            limits:
+              cpu: 300m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi

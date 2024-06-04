@@ -1,0 +1,130 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: defid
+spec:
+  selector:
+    matchLabels:
+      app: defid
+  serviceName: "defid"
+  podManagementPolicy: Parallel
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: defid
+    spec:
+      terminationGracePeriodSeconds: 10
+      serviceAccount: defid
+      securityContext:
+        fsGroup: 1001
+      initContainers:
+        - name: snapshot-init
+          image: amazon/aws-cli:latest
+          envFrom:
+            - configMapRef:
+                name: defid
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo "Installing dependencies..";
+              yum install tar gzip -y;
+
+              echo "Cleaning up directories..";
+              [[ ! -z "${DEFID_FRESH_SYNC}" ]] && rm -rf /data/*;
+              mkdir -p $DEFID_PATH;
+
+              echo "Downloading snapshot...";
+              [[ ! -z "${DEFID_SNAPSHOT_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && aws s3 cp s3://$BUCKET_NAME/$DEFID_SNAPSHOT_NAME /snapshot/$DEFID_SNAPSHOT_NAME;
+
+              echo "Extracting snapshot...";
+              [[ ! -z "${DEFID_SNAPSHOT_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && tar -xzvf /snapshot/$DEFID_SNAPSHOT_NAME -C $DEFID_PATH/;
+
+              echo "Cleaning up...";
+              [[ ! -z "${DEFID_SNAPSHOT_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && rm -rf /snapshot/$DEFID_SNAPSHOT_NAME;
+
+              echo "Copying defi.conf...";
+              cp /tmp/defi.conf /data/defi.conf;
+
+              echo "Updating permissions...";
+              chmod -R o+rw $DEFID_PATH;
+              chown -R 1001:1001 $DEFID_PATH;
+
+              echo "Done!";
+          volumeMounts:
+            - name: defid
+              mountPath: /data
+            - name: defi-conf
+              mountPath: /tmp/defi.conf
+              subPath: defi.conf
+            - name: snapshot
+              mountPath: /snapshot
+      containers:
+        - name: defid
+          image: defi/defichain:latest
+          ports:
+            - containerPort: 8555
+              name: mainnet-p2p
+              protocol: TCP
+            - containerPort: 8554
+              name: mainnet-dfi-rpc
+            - containerPort: 8551
+              name: mainnet-evm-rpc
+              protocol: TCP
+            - containerPort: 18555
+              name: testnet-p2p
+              protocol: TCP
+            - containerPort: 18554
+              name: testnet-dfi-rpc
+              protocol: TCP
+            - containerPort: 18551
+              name: testnet-evm-rpc
+              protocol: TCP
+            - containerPort: 20555
+              name: changi-p2p
+              protocol: TCP
+            - containerPort: 20554
+              name: changi-dfi-rpc
+              protocol: TCP
+            - containerPort: 20551
+              name: changi-evm-rpc
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - |-
+                  headers=$(/app/bin/defi-cli getblockchaininfo | grep "headers" | sed 's/[^0-9]*//g' || echo 0);
+                  blocks=$(/app/bin/defi-cli getblockchaininfo | grep "blocks" | sed 's/[^0-9]*//g' || echo 0);
+                  initialblockdownload=$(/app/bin/defi-cli getblockchaininfo | grep "initialblockdownload");
+                  echo "$initialblockdownload and blocks are behind headers by $(($headers - $blocks))"
+                  if [[ "$initialblockdownload" == *"true"* || $(($headers - $blocks)) -gt 10 ]]; then exit 1; fi
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 360 # 3 hours
+          volumeMounts:
+            - name: defid
+              mountPath: /data
+      volumes:
+        - name: defi-conf
+          configMap:
+            name: defi-conf
+  volumeClaimTemplates:
+    - metadata:
+        name: defid
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "gp3"
+        resources:
+          requests:
+            storage: 32Gi
+    - metadata:
+        name: snapshot
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "gp3"
+        resources:
+          requests:
+            storage: 32Gi

@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indexer
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: indexer
+  template:
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: indexer
+          image: blockscout/blockscout:latest
+          imagePullPolicy: Always
+          command: ["/bin/sh"]
+          args:
+            [
+              "-c",
+              'bin/blockscout eval "Elixir.Explorer.ReleaseTasks.create_and_migrate()" && bin/blockscout start',
+            ]
+          env:
+            - name: DISABLE_INDEXER
+              value: "false"
+            - name: DISABLE_WEBAPP
+              value: "true"
+            - name: API_V1_READ_METHODS_DISABLED
+              value: "true"
+            - name: API_V1_WRITE_METHODS_DISABLED
+              value: "true"
+            - name: INDEXER_DISABLE_BLOCK_REWARD_FETCHER
+              value: "true"
+            - name: INDEXER_DISABLE_INTERNAL_TRANSACTIONS_FETCHER
+              value: "true"
+            - name: INDEXER_DISABLE_PENDING_TRANSACTIONS_FETCHER
+              value: "true"
+          envFrom:
+            - secretRef:
+                name: database
+            - configMapRef:
+                name: blockscout
+          ports:
+            - containerPort: 8050
+              name: http
+              protocol: TCP
+            - containerPort: 8051
+              name: grpc
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4000Mi
+            requests:
+              cpu: "1"
+              memory: 2000Mi
