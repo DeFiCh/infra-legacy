@@ -16,11 +16,13 @@ resource "cloudflare_tunnel" "this" {
 resource "cloudflare_record" "this" {
   for_each = var.ingress_rules
 
-  zone_id = var.zone_id
-  name    = each.value.hostname
-  value   = cloudflare_tunnel.this.cname
-  type    = "CNAME"
-  proxied = true
+  zone_id         = var.zone_id
+  name            = each.value.hostname
+  value           = cloudflare_tunnel.this.cname
+  type            = "CNAME"
+  allow_overwrite = true
+  proxied         = true
+  comment         = "Zero Trust Tunnel - ${var.name}"
 }
 
 # Creates the configuration for the tunnel.
@@ -29,16 +31,13 @@ resource "cloudflare_tunnel_config" "this" {
   account_id = data.cloudflare_accounts.this.accounts[0].id
 
   config {
-    # warp_routing {
-    #   enabled = true
-    # }
-
     # Ingress Rules 
     dynamic "ingress_rule" {
       for_each = var.ingress_rules
       content {
         hostname = cloudflare_record.this[ingress_rule.key].hostname
         service  = ingress_rule.value.service
+        path     = ingress_rule.value.path
       }
     }
 
@@ -48,23 +47,3 @@ resource "cloudflare_tunnel_config" "this" {
     }
   }
 }
-
-# Creates an Access application to control who can connect.
-# resource "cloudflare_access_application" "http_app" {
-#   zone_id          = var.cloudflare_zone_id
-#   name             = "Access application for http_app.${var.cloudflare_zone}"
-#   domain           = "http_app.${var.cloudflare_zone}"
-#   session_duration = "1h"
-# }
-
-# # Creates an Access policy for the application.
-# resource "cloudflare_access_policy" "http_policy" {
-#   application_id = cloudflare_access_application.http_app.id
-#   zone_id        = var.cloudflare_zone_id
-#   name           = "Example policy for http_app.${var.cloudflare_zone}"
-#   precedence     = "1"
-#   decision       = "allow"
-#   include {
-#     email = [var.cloudflare_email]
-#   }
-# }

@@ -105,27 +105,6 @@ inputs = {
       }
     },
     {
-      # Changi Jellyfishsdk.com
-      for idx, val in [
-        { name = "changi.ocean.${local.domain}", value = "cake-ocean-changi-whale-1922433477.ap-southeast-1.elb.amazonaws.com" },
-        { name = "blockscout.changi.ocean.${local.domain}", value = "cake-ocean-changi-blockscout-986812764.ap-southeast-1.elb.amazonaws.com" },
-        { name = "eth.changi.ocean.${local.domain}", value = "cake-ocean-changi-whale-1922433477.ap-southeast-1.elb.amazonaws.com" },
-        { name = "stats.changi.ocean.${local.domain}", value = "cake-ocean-changi-blockscout-986812764.ap-southeast-1.elb.amazonaws.com" },
-        { name = "visualizer.changi.ocean.${local.domain}", value = "cake-ocean-changi-blockscout-986812764.ap-southeast-1.elb.amazonaws.com" },
-      ] :
-      "${val.name}" => {
-        allow_overwrite = true
-        proxied         = false
-        name            = val.name
-        value           = val.value
-        type            = "CNAME"
-        ttl             = 1800
-        tags            = [] # Unable in free version
-        priority        = null
-        comment         = "Testnet Ocean + Blockscout"
-      }
-    },
-    {
       # Playground Jellyfishsdk.com
       for idx, val in [
         { value = "ns-1105.awsdns-10.org" },

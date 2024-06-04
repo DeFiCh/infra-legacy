@@ -12,5 +12,6 @@ variable "ingress_rules" {
   type = map(object({
     hostname = string
     service  = string
+    path     = optional(string)
   }))
 }
