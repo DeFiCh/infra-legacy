@@ -1,4 +1,4 @@
 # creation rules are evaluated sequentially, the first match wins
 creation_rules:
   - unencrypted_regex: "^(apiVersion|metadata|kind|type)$"
-    kms: arn:aws:kms:ap-southeast-1:637423481667:key/6cf131bc-bf80-4401-898a-ad6453c0a337
+    kms: arn:aws:kms:ap-southeast-1:637423481667:key/ba467f10-f7c6-4e45-864f-620506eec4e6
