@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: defid-masternode
+spec:
+  replicas: 1
+  template:
+    spec:
+      serviceAccount: defid-masternode-marblefi
+      containers:
+        - name: defid
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8000Mi
+            requests:
+              cpu: "1"
+              memory: 2000Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: defid
+      spec:
+        storageClassName: "gp3"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 64Gi
+    - metadata:
+        name: snapshot
+      spec:
+        storageClassName: "gp3"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 64Gi
