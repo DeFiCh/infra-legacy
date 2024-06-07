@@ -1,13 +1,20 @@
 # DefichainLabs Infrastructure as Code
 
-<!-- markdown-link-check-disable-next-line -->
-[![MegaLinter](https://github.com/DeFiCh/infra/actions/workflows/mega-linter.yml/badge.svg)](https://github.com/DeFiCh/infra/actions/workflows/mega-linter.yml)
-
 [![DefichainLabs](./docs/imgs/defichainlabs.svg)](https://defichain.com)
 
 ---
 
 Infrastructure management of DFI Labs.
+
+## GitOps
+
+Argo Workflow Version: v2.11.2
+
+| Cluster                | App                                                                                                                                                                                | Links                                                                                                                               |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| dfi-ocean-mainnet-aps1 |                                                                                                                                                                                    |                                                                                                                                     |
+| dfi-ocean-testnet-aps1 | ![](https://argo.testnet.ocean.jellyfishsdk.com/api/badge?name=ocean&showAppName=true) ![](https://argo.testnet.ocean.jellyfishsdk.com/api/badge?name=blockscout&showAppName=true) | [Ocean](./k8s/legacy/testnet/dfi-ocean-testnet-aps1/ocean/) / [Blockscout](./k8s/legacy/testnet/dfi-ocean-testnet-aps1/blockscout/) |
+| dfi-ocean-changi-aps1  | ![](https://argo.changi.ocean.jellyfishsdk.com/api/badge?name=ocean&showAppName=true) ![](https://argo.changi.ocean.jellyfishsdk.com/api/badge?name=blockscout&showAppName=true)   | [Ocean](./k8s/legacy/changi/dfi-ocean-changi-aps1/ocean/) / [Blockscout](./k8s/legacy/changi/dfi-ocean-changi-aps1/blockscout/)     |
 
 ## What
 
