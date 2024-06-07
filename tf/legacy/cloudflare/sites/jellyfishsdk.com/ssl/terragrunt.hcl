@@ -18,5 +18,10 @@ inputs = {
       hosts                 = ["changi.ocean.jellyfishsdk.com", "*.changi.ocean.jellyfishsdk.com"]
       certificate_authority = "lets_encrypt"
     }
+    "testnet.ocean.jellyfishsdk.com" = {
+      validation_method     = "txt"
+      hosts                 = ["testnet.ocean.jellyfishsdk.com", "*.testnet.ocean.jellyfishsdk.com"]
+      certificate_authority = "lets_encrypt"
+    }
   }
 }

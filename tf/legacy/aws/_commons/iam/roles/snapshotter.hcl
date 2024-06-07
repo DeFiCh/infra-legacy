@@ -48,7 +48,10 @@ inputs = {
     {
       test     = "StringLike"
       variable = "${dependency.eks.outputs.oidc_provider}:sub"
-      values   = ["system:serviceaccount:ocean:*"]
+      values = [
+        "system:serviceaccount:ocean:*",
+        "system:serviceaccount:masternodes:*"
+      ]
     }
   ]
 

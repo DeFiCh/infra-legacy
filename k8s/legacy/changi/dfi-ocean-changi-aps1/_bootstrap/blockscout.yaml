@@ -11,7 +11,7 @@ spec:
   source:
     path: k8s/legacy/changi/dfi-ocean-changi-aps1/blockscout
     repoURL: git@github.com:DeFiCh/infra.git
-    targetRevision: feat/ocean-changi
+    targetRevision: main
   syncPolicy:
     automated:
       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
