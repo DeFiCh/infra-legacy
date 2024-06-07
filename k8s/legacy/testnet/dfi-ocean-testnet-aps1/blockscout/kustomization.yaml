@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: blockscout
+
+images:
+  - name: ghcr.io/blockscout/sig-provider
+    newTag: v1.0.0
+  - name: ghcr.io/blockscout/smart-contract-verifier
+    newTag: v1.6.0
+  - name: ghcr.io/blockscout/visualizer
+    newTag: v0.2.0
+  - name: ghcr.io/blockscout/stats
+    newTag: v1.5.0
+  - name: blockscout/blockscout
+    newTag: 5.3.2
+  - name: ghcr.io/blockscout/frontend
+    newTag: v1.18.1
+
+resources:
+  - ../../../_commons/services/blockscout
+
+configMapGenerator:
+  - name: blockscout
+    envs:
+      - configs/blockscout.env
+  - name: frontend
+    envs:
+      - configs/frontend.env
+  - name: stats
+    envs:
+      - configs/stats.env
+
+generators:
+  - secrets/secret-generator.yaml
