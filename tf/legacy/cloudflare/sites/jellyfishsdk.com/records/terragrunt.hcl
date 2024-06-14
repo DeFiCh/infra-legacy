@@ -84,27 +84,6 @@ inputs = {
       }
     },
     {
-      # Testnet Jellyfishsdk.com
-      for idx, val in [
-        { name = "testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-whale-87774044.ap-southeast-1.elb.amazonaws.com" },
-        { name = "blockscout.testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-blockscout-1420704679.ap-southeast-1.elb.amazonaws.com" },
-        { name = "eth.testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-whale-87774044.ap-southeast-1.elb.amazonaws.com" },
-        { name = "stats.testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-blockscout-1420704679.ap-southeast-1.elb.amazonaws.com" },
-        { name = "visualizer.testnet.ocean.${local.domain}", value = "dualstack.cake-ocean-testnet-blockscout-1420704679.ap-southeast-1.elb.amazonaws.com" },
-      ] :
-      "${val.name}" => {
-        allow_overwrite = true
-        proxied         = false
-        name            = val.name
-        value           = val.value
-        type            = "CNAME"
-        ttl             = 1800
-        tags            = [] # Unable in free version
-        priority        = null
-        comment         = "Testnet Ocean + Blockscout"
-      }
-    },
-    {
       # Playground Jellyfishsdk.com
       for idx, val in [
         { value = "ns-1105.awsdns-10.org" },
