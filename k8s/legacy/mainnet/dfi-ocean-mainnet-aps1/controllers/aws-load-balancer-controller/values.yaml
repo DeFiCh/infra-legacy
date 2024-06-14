@@ -1,0 +1,14 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-load-balancer-controller
+spec:
+  source:
+    helm:
+      valuesObject:
+        fullnameOverride: "aws-load-balancer-controller"
+        clusterName: "dfi-ocean-mainnet-aps1"
+        serviceAccount:
+          annotations:
+            "eks.amazonaws.com/role-arn": "arn:aws:iam::637423481667:role/dfi-ocean-mainnet-aps1-aws-load-balancer-controller"

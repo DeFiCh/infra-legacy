@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-autoscaler
+spec:
+  source:
+    helm:
+      valuesObject:
+        fullnameOverride: "cluster-autoscaler"
+        autoDiscovery:
+          clusterName: "dfi-ocean-mainnet-aps1"
+        awsRegion: "ap-southeast-1"
+        rbac:
+          serviceAccount:
+            annotations:
+              "eks.amazonaws.com/role-arn": "arn:aws:iam::637423481667:role/dfi-ocean-mainnet-aps1-cluster-autoscaler"
+        extraArgs:
+          skip-nodes-with-local-storage: false
+          balance-similar-node-groups: true
+          scale-down-delay-after-add: 5m
+          scale-down-unneeded-time: 5m
