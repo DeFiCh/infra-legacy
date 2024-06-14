@@ -8,10 +8,10 @@ terraform {
 
 inputs = {
   bucket = dependency.labels.outputs.id
-  acl    = "private"
+  # acl    = "private"
 
   control_object_ownership = true
-  object_ownership         = "ObjectWriter"
+  object_ownership         = "BucketOwnerEnforced"
 
   # Remove Name as it's conflicting with the tags generated in module
   tags = { for k, v in dependency.labels.outputs.tags : k => v if k != "Name" }
