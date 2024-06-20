@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: stackgres
   namespace: argo
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
