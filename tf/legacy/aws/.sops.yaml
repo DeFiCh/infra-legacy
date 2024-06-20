@@ -4,3 +4,5 @@ creation_rules:
     kms: arn:aws:kms:ap-southeast-1:637423481667:key/6cf131bc-bf80-4401-898a-ad6453c0a337
   - path_regex: ocean/testnet/*
     kms: arn:aws:kms:ap-southeast-1:637423481667:key/ba467f10-f7c6-4e45-864f-620506eec4e6
+  - path_regex: ocean/mainnet/*
+    kms: arn:aws:kms:ap-southeast-1:637423481667:key/df82460c-2d1f-4d3b-861a-e268b8ecfcd1
