@@ -34,7 +34,7 @@ spec:
             - name: INDEXER_DISABLE_BLOCK_REWARD_FETCHER
               value: "true"
             - name: INDEXER_DISABLE_INTERNAL_TRANSACTIONS_FETCHER
-              value: "false"
+              value: "true"
             - name: INDEXER_DISABLE_PENDING_TRANSACTIONS_FETCHER
               value: "true"
           envFrom:
