@@ -19,10 +19,10 @@ inputs = {
   zone_id = dependency.zone.outputs.id
   name    = "${include.provider.locals.label_id}-${include.provider.locals.region_abbreviation}"
   ingress_rules = {
-    # "0" = {
-    #   hostname = "${local.domain}"
-    #   service  = "http://whale.ocean.svc.cluster.local:3000"
-    # }
+    "0" = {
+      hostname = "${local.domain}"
+      service  = "http://whale.ocean.svc.cluster.local:3000"
+    }
     "1" = {
       hostname = "eth.${local.domain}"
       service  = "http://defid.ocean.svc.cluster.local:8551"
@@ -61,6 +61,18 @@ inputs = {
     "9" = {
       hostname = "grafana.${local.domain}"
       service  = "http://kube-prometheus-stack-grafana.monitoring.svc.cluster.local"
+    }
+    "10" = {
+      hostname = "rancher.${local.domain}"
+      service  = "http://rancher.cattle-system.svc.cluster.local"
+    }
+    "11" = {
+      hostname = "api.${local.domain}"
+      service  = "http://legacy-stats.ocean.svc.cluster.local:3000"
+    }
+    "12" = {
+      hostname = "defid.${local.domain}"
+      service  = "http://defid.ocean.svc.cluster.local:8554"
     }
   }
 }

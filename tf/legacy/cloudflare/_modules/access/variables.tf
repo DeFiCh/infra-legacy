@@ -9,6 +9,7 @@ variable "applications" {
     domain           = string
     session_duration = optional(string, "24h")
     groups           = optional(list(string), [])
+    logo_url         = optional(string)
   }))
   default     = {}
   description = "Map config of Applications"

@@ -20,22 +20,20 @@ resource "cloudflare_access_policy" "this" {
   decision   = "allow"
 
   include {
-    group = each.value.groups
+    group = [for idx, val in each.value.groups : cloudflare_access_group.this[val].id]
   }
-
-  depends_on = [cloudflare_access_group.this]
 }
 
-resource "cloudflare_access_application" "staging_app" {
+resource "cloudflare_access_application" "this" {
   for_each = var.applications
 
   account_id = data.cloudflare_accounts.this.accounts[0].id
 
-  name                      = each.key
-  domain                    = each.value.domain
-  type                      = "self_hosted"
-  session_duration          = each.value.session_duration
-  auto_redirect_to_identity = true
+  name             = each.key
+  domain           = each.value.domain
+  type             = "self_hosted"
+  session_duration = each.value.session_duration
+  logo_url         = each.value.logo_url
 
   policies = [
     cloudflare_access_policy.this[each.key].id
