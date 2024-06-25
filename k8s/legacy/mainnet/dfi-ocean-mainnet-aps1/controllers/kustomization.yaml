@@ -11,3 +11,4 @@ resources:
   - gemini
   - stackgres
   - kube-prometheus-stack
+  - rancher

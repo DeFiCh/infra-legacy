@@ -10,3 +10,4 @@ resources:
   - volume-snapshots
   - gemini
   - stackgres
+  - rancher

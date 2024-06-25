@@ -1,0 +1,15 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher
+spec:
+  source:
+    helm:
+      valuesObject:
+        hostname: rancher.mainnet.ocean.jellyfishsdk.com
+        tls: external
+        auditLog:
+          level: 3
+        ingress:
+          enabled: false
