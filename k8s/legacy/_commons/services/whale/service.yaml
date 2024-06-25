@@ -10,3 +10,8 @@ spec:
       port: 3000
       protocol: TCP
       targetPort: 3000
+  # Session sticky
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 3600
