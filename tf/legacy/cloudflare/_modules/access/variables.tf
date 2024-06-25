@@ -6,10 +6,16 @@ variable "access_groups" {
 
 variable "applications" {
   type = map(object({
-    domain           = string
-    session_duration = optional(string, "24h")
-    groups           = optional(list(string), [])
-    logo_url         = optional(string)
+    domain               = string
+    decision             = optional(string, "allow")
+    session_duration     = optional(string, "24h")
+    logo_url             = optional(string)
+    app_launcher_visible = optional(bool, true)
+    includes = map(object({
+      groups                  = optional(list(string), [])
+      everyone                = optional(bool)
+      any_valid_service_token = optional(bool)
+    }))
   }))
   default     = {}
   description = "Map config of Applications"

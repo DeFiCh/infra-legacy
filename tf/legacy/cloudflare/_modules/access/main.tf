@@ -17,10 +17,16 @@ resource "cloudflare_access_policy" "this" {
 
   account_id = data.cloudflare_accounts.this.accounts[0].id
   name       = each.key
-  decision   = "allow"
+  decision   = each.value.decision
 
-  include {
-    group = [for idx, val in each.value.groups : cloudflare_access_group.this[val].id]
+  dynamic "include" {
+    for_each = each.value.includes
+
+    content {
+      group                   = [for idx, val in include.value.groups : cloudflare_access_group.this[val].id]
+      everyone                = include.value.everyone
+      any_valid_service_token = include.value.any_valid_service_token
+    }
   }
 }
 
@@ -29,11 +35,12 @@ resource "cloudflare_access_application" "this" {
 
   account_id = data.cloudflare_accounts.this.accounts[0].id
 
-  name             = each.key
-  domain           = each.value.domain
-  type             = "self_hosted"
-  session_duration = each.value.session_duration
-  logo_url         = each.value.logo_url
+  name                 = each.key
+  domain               = each.value.domain
+  type                 = "self_hosted"
+  session_duration     = each.value.session_duration
+  logo_url             = each.value.logo_url
+  app_launcher_visible = each.value.app_launcher_visible
 
   policies = [
     cloudflare_access_policy.this[each.key].id
