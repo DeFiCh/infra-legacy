@@ -12,6 +12,7 @@ resources:
   - defid
   - defid-snapshotter
   - whale
+  - legacy-stats
 
 configMapGenerator:
   - name: defi-conf
