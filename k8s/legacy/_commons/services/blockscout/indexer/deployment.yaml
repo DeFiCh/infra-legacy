@@ -32,11 +32,11 @@ spec:
             - name: API_V1_WRITE_METHODS_DISABLED
               value: "true"
             - name: INDEXER_DISABLE_BLOCK_REWARD_FETCHER
-              value: "true"
+              value: "false"
             - name: INDEXER_DISABLE_INTERNAL_TRANSACTIONS_FETCHER
-              value: "true"
+              value: "false"
             - name: INDEXER_DISABLE_PENDING_TRANSACTIONS_FETCHER
-              value: "true"
+              value: "false"
           envFrom:
             - secretRef:
                 name: database
