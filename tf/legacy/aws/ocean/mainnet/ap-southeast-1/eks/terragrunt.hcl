@@ -1,11 +1,11 @@
 locals {
   instance_types = [
-    "m5.xlarge",
-    "m5a.xlarge",
-    "m5d.xlarge",
-    "m6a.xlarge",
-    "m6i.xlarge",
-    "m6id.xlarge"
+    "m5.2xlarge",
+    "m5a.2xlarge",
+    "m5d.2xlarge",
+    "m6a.2xlarge",
+    "m6i.2xlarge",
+    "m6id.2xlarge"
   ]
 
   admin_role_arns = yamldecode(sops_decrypt_file("${dirname(find_in_parent_folders("env.hcl"))}/secrets/roles.yaml")).admins
@@ -45,18 +45,18 @@ inputs = {
 
   eks_managed_node_groups = {
     # ec2-instance-selector --memory 16 --vcpus 4 --gpus 0 --cpu-architecture x86_64 --current-generation -r ap-southeast-1 -z ap-southeast-1a -u spot -o table-wide
-    "eks-mxlarge-1a" = {
-      name         = "eks-mxlarge"
+    "eks-m2xlarge-1a" = {
+      name         = "eks-m2xlarge"
       subnet_ids   = [dependency.vpc.outputs.private_subnets[0]]
       desired_size = 1
       min_size     = 1
     }
-    "eks-mxlarge-1b" = {
-      name       = "eks-mxlarge"
+    "eks-m2xlarge-1b" = {
+      name       = "eks-m2xlarge"
       subnet_ids = [dependency.vpc.outputs.private_subnets[1]]
     }
-    "eks-mxlarge-1c" = {
-      name       = "eks-mxlarge"
+    "eks-m2xlarge-1c" = {
+      name       = "eks-m2xlarge"
       subnet_ids = [dependency.vpc.outputs.private_subnets[2]]
     }
   }
