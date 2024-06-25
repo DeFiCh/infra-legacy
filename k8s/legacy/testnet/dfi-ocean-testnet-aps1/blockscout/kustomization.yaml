@@ -6,15 +6,15 @@ images:
   - name: ghcr.io/blockscout/sig-provider
     newTag: v1.0.0
   - name: ghcr.io/blockscout/smart-contract-verifier
-    newTag: v1.6.0
+    newTag: v1.8.0
   - name: ghcr.io/blockscout/visualizer
     newTag: v0.2.0
   - name: ghcr.io/blockscout/stats
-    newTag: v1.5.0
+    newTag: v1.6.0
   - name: blockscout/blockscout
-    newTag: 5.3.2
+    newTag: 6.7.0
   - name: ghcr.io/blockscout/frontend
-    newTag: v1.18.1
+    newTag: v1.31.1
 
 resources:
   - ../../../_commons/services/blockscout
