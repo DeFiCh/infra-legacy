@@ -11,6 +11,7 @@ spec:
       - name: "pg_trgm"
       - name: "btree_gist"
       - name: "citext"
+      - name: "btree_gin"
   instances: 2
   sgInstanceProfile: "size-s"
   pods:
