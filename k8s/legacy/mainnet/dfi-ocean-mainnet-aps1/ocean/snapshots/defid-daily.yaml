@@ -1,0 +1,14 @@
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: defid
+spec:
+  persistentVolumeClaim:
+    claimName: defid-defid-0
+  schedule:
+    - every: day
+      keep: 30
+  template:
+    spec:
+      volumeSnapshotClassName: ebs-snapclass

@@ -1,0 +1,14 @@
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: whale
+spec:
+  persistentVolumeClaim:
+    claimName: whale-whale-0
+  schedule:
+    - every: day
+      keep: 30
+  template:
+    spec:
+      volumeSnapshotClassName: ebs-snapclass
