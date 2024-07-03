@@ -4,7 +4,7 @@ kind: StatefulSet
 metadata:
   name: whale
 spec:
-  replicas: 4
+  replicas: 6
   template:
     spec:
       containers:

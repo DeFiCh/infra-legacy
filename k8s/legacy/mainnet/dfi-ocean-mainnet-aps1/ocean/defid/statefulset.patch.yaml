@@ -4,7 +4,7 @@ kind: StatefulSet
 metadata:
   name: defid
 spec:
-  replicas: 8
+  replicas: 12
   template:
     spec:
       containers:
