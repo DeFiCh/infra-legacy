@@ -6,7 +6,7 @@ images:
   - name: ghcr.io/birthdayresearch/whale-api
     newTag: 4.0.7
   - name: defi/defichain
-    newTag: 4.1.0
+    newTag: 4.1.1
 
 resources:
   - defid
