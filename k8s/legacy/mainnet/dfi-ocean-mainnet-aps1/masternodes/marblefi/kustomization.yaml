@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: masternodes
+
+nameSuffix: -marblefi
+
+images:
+  - name: defi/defichain
+    newTag: 4.1.2
+
+resources:
+  - defid-masternode
+
+configMapGenerator:
+  - name: defi-conf
+    files:
+      - configs/defi.conf
+  - name: defid
+    envs:
+      - configs/defid.env
+  - name: defi-keys
+    files:
+      - configs/keys.private
+
+patches:
+  - patch: |
+      - op: replace
+        path: /metadata/annotations/eks.amazonaws.com~1role-arn
+        value: arn:aws:iam::637423481667:role/dfi-ocean-mainnet-aps1-snapshotter
+    target:
+      kind: ServiceAccount
+      name: defid-masternode
+
+generators:
+  - secrets/secret-generator.yaml
