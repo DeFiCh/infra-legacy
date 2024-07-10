@@ -14,7 +14,6 @@ inputs = {
   # Cluster settings
   cluster_name                             = dependency.labels.outputs.id
   cluster_version                          = "1.28"
-  cluster_enabled_log_types                = ["audit"]
   enable_irsa                              = true
   cluster_endpoint_private_access          = true
   cluster_endpoint_public_access           = true
@@ -37,6 +36,12 @@ inputs = {
       most_recent = true
     }
   }
+
+  # Cloudwatch
+  cluster_enabled_log_types              = ["audit"]
+  cloudwatch_log_group_class             = "INFREQUENT_ACCESS"
+  cloudwatch_log_group_retention_in_days = 90
+  cloudwatch_log_group_tags              = { for k, v in dependency.labels.outputs.tags : k => v if k != "Name" }
 
   # Vpc settings
   vpc_id                   = dependency.vpc.outputs.vpc_id

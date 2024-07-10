@@ -16,7 +16,7 @@ resource "cloudflare_tunnel" "this" {
 resource "cloudflare_record" "this" {
   for_each = var.ingress_rules
 
-  zone_id         = var.zone_id
+  zone_id         = each.value.zone_id
   name            = each.value.hostname
   value           = cloudflare_tunnel.this.cname
   type            = "CNAME"
