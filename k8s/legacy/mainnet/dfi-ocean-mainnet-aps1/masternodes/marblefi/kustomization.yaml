@@ -12,15 +12,9 @@ resources:
   - defid-masternode
 
 configMapGenerator:
-  - name: defi-conf
-    files:
-      - configs/defi.conf
   - name: defid
     envs:
       - configs/defid.env
-  - name: defi-keys
-    files:
-      - configs/keys.private
 
 patches:
   - patch: |

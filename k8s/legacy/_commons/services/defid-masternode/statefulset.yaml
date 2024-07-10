@@ -57,7 +57,7 @@ spec:
           volumeMounts:
             - name: defid
               mountPath: /data
-            - name: defi-conf
+            - name: defi-secrets
               mountPath: /tmp/defi.conf
               subPath: defi.conf
             - name: snapshot
@@ -110,20 +110,17 @@ spec:
           volumeMounts:
             - name: defid
               mountPath: /data
-            - name: defi-keys
+            - name: defi-secrets
               mountPath: /tmp/keys.private
               subPath: keys.private
             - name: defi-init
               mountPath: /init.sh
               subPath: init.sh
       volumes:
-        - name: defi-conf
-          configMap:
-            name: defi-conf
         # Masternode Private Keys
-        - name: defi-keys
-          configMap:
-            name: defi-keys
+        - name: defi-secrets
+          secret:
+            secretName: defi-secrets
         # Masternode Init script
         - name: defi-init
           configMap:
