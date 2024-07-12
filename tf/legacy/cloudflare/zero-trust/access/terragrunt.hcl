@@ -23,6 +23,7 @@ inputs = {
       }
     }
     "public-access" = {
+      decision = "bypass"
       includes = {
         "everyone" = {
           everyone = true

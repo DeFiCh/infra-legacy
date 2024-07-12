@@ -58,5 +58,28 @@ inputs = {
         dependency.access.outputs.tags["public"].id
       ]
     }
+    "[Changi] Prometheus" = {
+      domain   = "prometheus.changi.ocean.jellyfishsdk.com"
+      logo_url = "https://upload.wikimedia.org/wikipedia/commons/3/38/Prometheus_software_logo.svg"
+      policies = [
+        dependency.access.outputs.policies["engineering-access"].id
+      ]
+      tags = [
+        dependency.access.outputs.tags["changi"].id,
+        dependency.access.outputs.tags["internal"].id
+      ]
+    }
+    "[Changi] Blockscout" = {
+      domain   = "blockscout.changi.ocean.jellyfishsdk.com"
+      decision = "bypass"
+      logo_url = "https://pbs.twimg.com/profile_images/1563254263161032704/1RBJKVcR_400x400.jpg"
+      policies = [
+        dependency.access.outputs.policies["public-access"].id
+      ]
+      tags = [
+        dependency.access.outputs.tags["changi"].id,
+        dependency.access.outputs.tags["public"].id
+      ]
+    }
   }
 }

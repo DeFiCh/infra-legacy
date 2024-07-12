@@ -11,4 +11,6 @@ resource "cloudflare_access_application" "this" {
   app_launcher_visible = each.value.app_launcher_visible
   policies             = each.value.policies
   tags                 = each.value.tags
+  allowed_idps         = []
+  custom_pages         = []
 }

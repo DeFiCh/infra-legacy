@@ -76,5 +76,10 @@ inputs = {
       service  = "http://rancher.cattle-system.svc.cluster.local"
       zone_id  = dependency.zone.outputs.id
     }
+    "11" = {
+      hostname = "prometheus.${local.domain}"
+      service  = "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+      zone_id  = dependency.zone.outputs.id
+    }
   }
 }

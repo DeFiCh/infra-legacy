@@ -91,6 +91,11 @@ inputs = {
       service  = "http://defid.ocean.svc.cluster.local:8554"
       zone_id  = dependency.jellyfishsdk.outputs.id
     }
+    "13" = {
+      hostname = "prometheus.mainnet.${local.domain}"
+      service  = "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+      zone_id  = dependency.jellyfishsdk.outputs.id
+    }
     # Defichain
     "50" = {
       hostname = "${local.domain}"
