@@ -4,13 +4,9 @@ variable "access_groups" {
   description = "Map config of Google groups"
 }
 
-variable "applications" {
+variable "access_policies" {
   type = map(object({
-    domain               = string
-    decision             = optional(string, "allow")
-    session_duration     = optional(string, "24h")
-    logo_url             = optional(string)
-    app_launcher_visible = optional(bool, true)
+    decision = optional(string, "allow")
     includes = map(object({
       groups                  = optional(list(string), [])
       everyone                = optional(bool)
@@ -18,5 +14,11 @@ variable "applications" {
     }))
   }))
   default     = {}
-  description = "Map config of Applications"
+  description = "Map of access policies for applications"
+}
+
+variable "access_tags" {
+  type        = list(string)
+  default     = []
+  description = "List of tags to filter applications"
 }

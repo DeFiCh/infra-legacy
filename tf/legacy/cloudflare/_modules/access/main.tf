@@ -13,7 +13,7 @@ resource "cloudflare_access_group" "this" {
 }
 
 resource "cloudflare_access_policy" "this" {
-  for_each = var.applications
+  for_each = var.access_policies
 
   account_id = data.cloudflare_accounts.this.accounts[0].id
   name       = each.key
@@ -30,19 +30,9 @@ resource "cloudflare_access_policy" "this" {
   }
 }
 
-resource "cloudflare_access_application" "this" {
-  for_each = var.applications
+resource "cloudflare_access_tag" "this" {
+  for_each = toset(var.access_tags)
 
+  name       = each.value
   account_id = data.cloudflare_accounts.this.accounts[0].id
-
-  name                 = each.key
-  domain               = each.value.domain
-  type                 = "self_hosted"
-  session_duration     = each.value.session_duration
-  logo_url             = each.value.logo_url
-  app_launcher_visible = each.value.app_launcher_visible
-
-  policies = [
-    cloudflare_access_policy.this[each.key].id
-  ]
 }
