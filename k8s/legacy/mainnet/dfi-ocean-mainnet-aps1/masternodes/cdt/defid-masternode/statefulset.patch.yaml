@@ -16,7 +16,7 @@ spec:
               memory: 8000Mi
             requests:
               cpu: "1"
-              memory: 2000Mi
+              memory: 4000Mi
   volumeClaimTemplates:
     - metadata:
         name: defid
@@ -26,7 +26,7 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 64Gi
+            storage: 96Gi
     - metadata:
         name: snapshot
       spec:
@@ -35,4 +35,4 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 64Gi
+            storage: 96Gi
