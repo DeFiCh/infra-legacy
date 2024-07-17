@@ -50,15 +50,16 @@ start_program() {
             if [[ $line == *"msghand thread start"* ]]; then
                 found_msghand=true
             fi
-            if [[ $line == *"init message: Done loading"* ]]; then
-                found_done_loading=true
+            if [[ $line == *"progress=1.000000"* ]]; then
+                found_done_synching=true
             fi
-            if [[ $found_opencon && $found_addcon && $found_msghand && $found_done_loading ]]; then
+            if [[ $found_opencon && $found_addcon && $found_msghand && $found_done_synching ]]; then
                 echo "All conditions met. Handling masternode operator..."
+                sleep 10
                 handle_masternode_operator
                 echo "Going to stop now"
                 defi-cli stop
-                sleep 5
+                sleep 20
                 return
             fi
             if [[ $line == *"ThreadStaker"* ]]; then
