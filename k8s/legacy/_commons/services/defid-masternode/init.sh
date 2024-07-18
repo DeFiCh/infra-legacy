@@ -27,11 +27,11 @@ handle_masternode_operator() {
     while IFS="" read -r p || [ -n "$p" ]; do
         x=${p:0:4}
         echo "Importing private key number: $sum, key starts with: $x..."
-        
+
         # Wait every 500 private keys to prevent timeout
-        if [ $(( sum % 500 )) -eq 0 ]; then
-            echo "Reaching threshold.. waiting 10 seconds.."
-            sleep 10
+        if [ $((sum % 500)) -eq 0 ]; then
+            echo "Reaching threshold.. waiting 60 seconds.."
+            sleep 60
         fi
 
         defi-cli importprivkey $p '' false
