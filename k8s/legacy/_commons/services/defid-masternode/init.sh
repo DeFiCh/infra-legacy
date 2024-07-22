@@ -22,7 +22,7 @@ trap handle_shutdown_signal SIGTERM SIGINT SIGHUP
 
 # Function to handle masternode_operator logic
 handle_masternode_operator() {
-    if [ "$WALLET_SYNC" = true ]; then
+    if [ "$WALLET_SYNC" != true ]; then
         echo "entering keys loop..."
         sum=1
         while IFS="" read -r p || [ -n "$p" ]; do
