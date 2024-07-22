@@ -22,22 +22,24 @@ trap handle_shutdown_signal SIGTERM SIGINT SIGHUP
 
 # Function to handle masternode_operator logic
 handle_masternode_operator() {
-    echo "entering keys loop..."
-    sum=1
-    while IFS="" read -r p || [ -n "$p" ]; do
-        x=${p:0:4}
-        echo "Importing private key number: $sum, key starts with: $x..."
+    if [ "$WALLET_SYNC" = true ]; then
+        echo "entering keys loop..."
+        sum=1
+        while IFS="" read -r p || [ -n "$p" ]; do
+            x=${p:0:4}
+            echo "Importing private key number: $sum, key starts with: $x..."
 
-        # Wait every 500 private keys to prevent timeout
-        if [ $((sum % 500)) -eq 0 ]; then
-            echo "Reaching threshold.. waiting 60 seconds.."
-            sleep 60
-        fi
+            # Wait every 500 private keys to prevent timeout
+            if [ $((sum % 500)) -eq 0 ]; then
+                echo "Reaching threshold.. waiting 60 seconds.."
+                sleep 60
+            fi
 
-        defi-cli importprivkey $p '' false
-        sum=$((sum + 1))
-    done <"/tmp/keys.private"
-    sleep 5
+            defi-cli importprivkey $p '' false
+            sum=$((sum + 1))
+        done <"/tmp/keys.private"
+        sleep 5
+    fi
     echo "gen=1" >>/data/defi.conf
     echo "Done importing private keys"
 }

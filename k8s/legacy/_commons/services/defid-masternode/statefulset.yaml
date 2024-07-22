@@ -72,6 +72,9 @@ spec:
         - name: defid
           image: defi/defichain:latest
           command: ["/bin/sh", "-c", "/init.sh"]
+          envFrom:
+            - configMapRef:
+                name: defid
           ports:
             - containerPort: 8555
               name: mainnet-p2p
