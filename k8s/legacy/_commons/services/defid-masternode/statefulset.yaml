@@ -49,6 +49,10 @@ spec:
               chmod -R o+rw /data/defi.conf;
               chown -R 1001:1001 /data/defi.conf;
 
+              cp /tmp/wallet.dat /data/wallet.dat;
+              chmod -R o+rw /data/wallet.dat;
+              chown -R 1001:1001 /data/wallet.dat;
+
               echo "Updating permissions...";
               chmod -R o+rw $DEFID_PATH;
               chown -R 1001:1001 $DEFID_PATH;
@@ -60,6 +64,9 @@ spec:
             - name: defi-secrets
               mountPath: /tmp/defi.conf
               subPath: defi.conf
+            - name: defi-secrets
+              mountPath: /tmp/wallet.dat
+              subPath: wallet.dat
             - name: snapshot
               mountPath: /snapshot
       containers:
