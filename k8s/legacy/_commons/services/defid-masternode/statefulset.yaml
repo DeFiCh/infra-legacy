@@ -44,12 +44,14 @@ spec:
               echo "Cleaning up...";
               [[ ! -z "${DEFID_SNAPSHOT_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && rm -rf /snapshot/$DEFID_SNAPSHOT_NAME;
 
+              echo "Downloading wallet.dat...";
+              [[ ! -z "${WALLET_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && aws s3 cp s3://$BUCKET_NAME/$WALLET_NAME /data/wallet.dat;
+
               echo "Copying defi.conf...";
               cp /tmp/defi.conf /data/defi.conf;
               chmod -R o+rw /data/defi.conf;
               chown -R 1001:1001 /data/defi.conf;
 
-              cp /tmp/wallet.dat /data/wallet.dat;
               chmod -R o+rw /data/wallet.dat;
               chown -R 1001:1001 /data/wallet.dat;
 
@@ -64,9 +66,6 @@ spec:
             - name: defi-secrets
               mountPath: /tmp/defi.conf
               subPath: defi.conf
-            - name: defi-secrets
-              mountPath: /tmp/wallet.dat
-              subPath: wallet.dat
             - name: snapshot
               mountPath: /snapshot
       containers:
