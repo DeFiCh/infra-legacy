@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: legacy-stats
-          image: ghcr.io/birthdayresearch/legacy-api:latest
+          image: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/birthdayresearch/legacy-api:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000

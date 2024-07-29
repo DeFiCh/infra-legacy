@@ -12,7 +12,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: frontend
-          image: ghcr.io/blockscout/frontend:latest
+          image: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/frontend:latest
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
