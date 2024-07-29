@@ -16,6 +16,8 @@ spec:
     targetRevision: "1.9.0"
     helm:
       releaseName: stackgres
+      valuesObject:
+        containerRegistry: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/quay
   destination:
     server: "https://kubernetes.default.svc"
     namespace: stackgres

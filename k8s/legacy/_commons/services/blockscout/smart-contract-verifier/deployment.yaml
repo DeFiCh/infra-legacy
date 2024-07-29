@@ -12,7 +12,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: smart-contract-verifier
-          image: ghcr.io/blockscout/smart-contract-verifier:latest
+          image: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/smart-contract-verifier:latest
           imagePullPolicy: Always
           env:
             - name: SMART_CONTRACT_VERIFIER__SERVER__HTTP__ENABLED

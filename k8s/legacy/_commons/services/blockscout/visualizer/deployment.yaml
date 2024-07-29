@@ -12,7 +12,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: visualizer
-          image: ghcr.io/blockscout/visualizer:latest
+          image: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/visualizer:latest
           imagePullPolicy: Always
           env:
             - name: VISUALIZER__SERVER__GRPC__ENABLED

@@ -14,6 +14,8 @@ spec:
     targetRevision: "2.8.5"
     helm:
       releaseName: rancher
+      valuesObject:
+        rancherImage: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/dockerhub/rancher/rancher
   destination:
     server: "https://kubernetes.default.svc"
     namespace: cattle-system

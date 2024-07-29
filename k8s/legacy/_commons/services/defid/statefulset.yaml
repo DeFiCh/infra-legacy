@@ -21,7 +21,7 @@ spec:
         fsGroup: 1001
       initContainers:
         - name: snapshot-init
-          image: amazon/aws-cli:latest
+          image: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/dockerhub/amazon/aws-cli:latest
           envFrom:
             - configMapRef:
                 name: defid
@@ -62,7 +62,7 @@ spec:
               mountPath: /snapshot
       containers:
         - name: defid
-          image: defi/defichain:latest
+          image: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/dockerhub/defi/defichain:latest
           ports:
             - containerPort: 8555
               name: mainnet-p2p

@@ -18,7 +18,7 @@ spec:
             name: proxy
       containers:
         - name: stats
-          image: ghcr.io/blockscout/stats:latest
+          image: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/stats:latest
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
