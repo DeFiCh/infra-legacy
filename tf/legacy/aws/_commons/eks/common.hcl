@@ -52,10 +52,11 @@ inputs = {
   eks_managed_node_group_defaults = {
     capacity_type = "SPOT"
     iam_role_additional_policies = {
-      AmazonEKSClusterPolicy         = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
-      AmazonEKSServicePolicy         = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy",
-      AmazonEKSVPCResourceController = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController",
-      CloudWatchAgentServerPolicy    = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+      AmazonEKSClusterPolicy             = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
+      AmazonEKSServicePolicy             = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy",
+      AmazonEKSVPCResourceController     = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController",
+      AmazonEC2ContainerRegistryReadOnly = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+      CloudWatchAgentServerPolicy        = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
     }
     tags = merge(
       { for k, v in dependency.labels.outputs.tags : k => v if k != "Name" },
