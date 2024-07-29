@@ -3,9 +3,9 @@ dependency "labels" {
 }
 
 terraform {
-  source = "tfr:///cloudposse/ecr/aws//.?version=0.41.0"
+  source = "tfr:///terraform-aws-modules/ecr/aws//.?version=2.2.1"
 }
 
 inputs = {
-  context = dependency.labels.outputs.context
+  tags = dependency.labels.outputs.tags
 }
