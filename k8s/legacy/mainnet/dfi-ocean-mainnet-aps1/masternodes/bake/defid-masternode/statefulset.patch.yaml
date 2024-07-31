@@ -7,7 +7,7 @@ spec:
   replicas: 3
   template:
     spec:
-      serviceAccount: defid-masternode-super
+      serviceAccount: defid-masternode-super-bake
       containers:
         - name: defid
           resources:
