@@ -40,7 +40,7 @@ handle_masternode_operator() {
         done <"/tmp/keys.private"
         sleep 5
     fi
-    echo "gen=1" >>/data/defi.conf
+    echo "gen=1" >>$DEFID_PATH/defi.conf
     echo "Done importing private keys"
 }
 
