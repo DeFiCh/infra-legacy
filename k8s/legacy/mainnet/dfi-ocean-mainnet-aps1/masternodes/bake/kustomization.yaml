@@ -16,6 +16,13 @@ configMapGenerator:
     envs:
       - configs/defid.env
 
+# Just a placeholder. Use S3 bucket instead to pull due to K8s 1mb secret limitation
+secretGenerator:
+  - name: defi-secrets
+    literals:
+      - defi.conf=placeholder
+      - keys.private=placeholder
+
 patches:
   - patch: |
       - op: replace
