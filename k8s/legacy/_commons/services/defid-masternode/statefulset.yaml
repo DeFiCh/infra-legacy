@@ -49,6 +49,8 @@ spec:
 
               echo "Copying defi.conf...";
               cp /tmp/defi.conf /data/defi.conf;
+
+              [[ ! -z "${DEFID_CONF_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && aws s3 cp s3://$BUCKET_NAME/$DEFID_CONF_NAME /data/defi.conf;
               chmod -R o+rw /data/defi.conf;
               chown -R 1001:1001 /data/defi.conf;
 
