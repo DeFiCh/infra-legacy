@@ -2,19 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - "001"
-  - "002"
-  - "003"
-  - "004"
-  - "005"
-  - "006"
-  - "007"
-  - "008"
-  - "009"
-  - "010"
-  - "011"
-  - "012"
-  - "013"
+  - super
 
 patches:
   - path: statefulset.patch.yaml
