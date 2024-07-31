@@ -44,22 +44,18 @@ spec:
               echo "Cleaning up...";
               [[ ! -z "${DEFID_SNAPSHOT_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && rm -rf /snapshot/$DEFID_SNAPSHOT_NAME;
 
+              echo "Copying / Downloading defi.conf...";
+              cp /tmp/defi.conf $DEFID_PATH/defi.conf;
+              [[ ! -z "${DEFID_CONF_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && aws s3 cp s3://$BUCKET_NAME/$DEFID_CONF_NAME $DEFID_PATH/defi.conf;
+
               echo "Downloading wallet.dat...";
-              [[ ! -z "${WALLET_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && aws s3 cp s3://$BUCKET_NAME/$WALLET_NAME /data/wallet.dat;
-
-              echo "Copying defi.conf...";
-              cp /tmp/defi.conf /data/defi.conf;
-
-              [[ ! -z "${DEFID_CONF_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && aws s3 cp s3://$BUCKET_NAME/$DEFID_CONF_NAME /data/defi.conf;
-              chmod -R o+rw /data/defi.conf;
-              chown -R 1001:1001 /data/defi.conf;
-
-              chmod -R o+rw /data/wallet.dat;
-              chown -R 1001:1001 /data/wallet.dat;
+              [[ ! -z "${WALLET_SYNC}" && ! -f "$DEFID_PATH/wallet.dat" ]] && aws s3 cp s3://$BUCKET_NAME/$WALLET_NAME $DEFID_PATH/wallet.dat;
 
               echo "Updating permissions...";
               chmod -R o+rw $DEFID_PATH;
               chown -R 1001:1001 $DEFID_PATH;
+              chmod -R o+rw $DEFID_PATH/*;
+              chown -R 1001:1001 $DEFID_PATH/*;
 
               echo "Done!";
           volumeMounts:
