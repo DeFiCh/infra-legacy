@@ -4,10 +4,10 @@ kind: StatefulSet
 metadata:
   name: defid-masternode
 spec:
-  replicas: 3
+  replicas: 2
   template:
     spec:
-      serviceAccount: defid-masternode-super-bake
+      serviceAccount: defid-masternode-001-bake
       containers:
         - name: defid
           resources:

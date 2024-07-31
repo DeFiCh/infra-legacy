@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../../../../../../_commons/services/defid-masternode
 
-nameSuffix: "-super"
+nameSuffix: "-002"
 
 generators:
   - secret-generator.yaml
