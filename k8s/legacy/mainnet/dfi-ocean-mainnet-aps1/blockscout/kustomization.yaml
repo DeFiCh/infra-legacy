@@ -3,17 +3,17 @@ kind: Kustomization
 namespace: blockscout
 
 images:
-  - name: ghcr.io/blockscout/sig-provider
+  - name: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/sig-provider
     newTag: v1.0.0
-  - name: ghcr.io/blockscout/smart-contract-verifier
+  - name: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/smart-contract-verifier
     newTag: v1.8.0
-  - name: ghcr.io/blockscout/visualizer
+  - name: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/visualizer
     newTag: v0.2.0
-  - name: ghcr.io/blockscout/stats
+  - name: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/stats
     newTag: v1.6.0
-  - name: blockscout/blockscout
+  - name: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/dockerhub/blockscout/blockscout
     newTag: 6.7.0
-  - name: ghcr.io/blockscout/frontend
+  - name: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/github/blockscout/frontend
     newTag: v1.31.1
 
 resources:
