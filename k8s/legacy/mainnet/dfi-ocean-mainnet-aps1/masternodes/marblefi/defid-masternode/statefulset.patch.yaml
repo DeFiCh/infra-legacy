@@ -26,7 +26,7 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 64Gi
+            storage: 128Gi
     - metadata:
         name: snapshot
       spec:
@@ -35,4 +35,4 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 64Gi
+            storage: 128Gi
