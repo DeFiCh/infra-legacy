@@ -131,7 +131,7 @@ spec:
                     storageClassName: "gp3-multi"
                     resources:
                       requests:
-                        storage: 64Gi
+                        storage: 128Gi
             - name: snapshot-data
               ephemeral:
                 volumeClaimTemplate:
@@ -143,4 +143,4 @@ spec:
                     storageClassName: "gp3-multi"
                     resources:
                       requests:
-                        storage: 64Gi
+                        storage: 128Gi
