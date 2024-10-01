@@ -5,8 +5,8 @@ namespace: masternodes
 nameSuffix: -marblefi
 
 images:
-  - name: defi/defichain
-    newTag: 4.1.0
+  - name: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/dockerhub/defi/defichain
+    newTag: 4.1.11
 
 resources:
   - defid-masternode
