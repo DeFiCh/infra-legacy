@@ -23,7 +23,7 @@ curl -s --location $RPC_URL --header 'Content-Type: application/json' --data '{ 
 sleep 30s
 
 echo "Archiving..."
-tar -czvf /snapshot/defid-$DEFID_BLOCKHEIGHT.tar.gz -C $DEFID_PATH anchors blocks burn chainstate enhancedcs evm history indexes
+tar -czvf /snapshot/defid-$DEFID_BLOCKHEIGHT.tar.gz -C $DEFID_PATH anchors blocks burn chainstate enhancedcs evm history indexes vault
 
 echo "Uploading..."
 aws s3 cp /snapshot/defid-$DEFID_BLOCKHEIGHT.tar.gz s3://$BUCKET_NAME/defid-$DEFID_BLOCKHEIGHT.tar.gz
