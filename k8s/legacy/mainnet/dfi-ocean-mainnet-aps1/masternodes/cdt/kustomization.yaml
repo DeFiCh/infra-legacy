@@ -6,7 +6,7 @@ nameSuffix: -cdt
 
 images:
   - name: 637423481667.dkr.ecr.ap-southeast-1.amazonaws.com/dockerhub/defi/defichain
-    newTag: 4.2.4
+    newTag: 4.2.1
 
 resources:
   - defid-masternode
